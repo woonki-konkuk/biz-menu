@@ -30,10 +30,8 @@ p{margin:0}
 ul{margin:0;padding:0;list-style:none}
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter)}
 
-/* ── 헤더: 유틸 + 로고 + 상단 메뉴 (드롭다운 없음) ── */
+/* ── 헤더: 로고 + 상단 메뉴 (드롭다운 없음) ── */
 .hdr{background:var(--surface);border-bottom:1px solid var(--line)}
-.util{display:flex;justify-content:flex-end;gap:18px;font-size:12px;color:var(--ink-3);padding:8px 0;border-bottom:1px solid var(--line)}
-.util a:hover{color:var(--ku-green)}
 .bar{display:flex;align-items:stretch;justify-content:space-between;gap:32px}
 .logo{display:flex;align-items:center;gap:12px;padding:16px 0}
 .logo .ku{display:inline-grid;place-items:center;width:44px;height:44px;border:2px solid var(--ku-green);color:var(--ku-green);font-family:var(--display);font-weight:700;font-size:15px;border-radius:3px}
@@ -71,9 +69,6 @@ ul{margin:0;padding:0;list-style:none}
 
 <header class="hdr">
   <div class="wrap">
-    <div class="util">
-      <a href="#">건국대학교</a><a href="#">ENGLISH</a><a href="#">사이트맵</a><a href="#">로그인</a>
-    </div>
     <div class="bar">
       <a class="logo" href="#"><span class="ku">KU</span><span class="name"><small>KONKUK UNIVERSITY</small>경영학과</span></a>
       <nav class="gnb" id="gnb" aria-label="주 메뉴"></nav>
@@ -98,7 +93,8 @@ const MENU = [
   { name:'교수소개', tabs:['전체','인사조직','재무관리','마케팅','운영관리·경영과학','전략·국제경영','회계','경영정보','산학·겸임·초빙','명예교수'].map(n => ({name:n})) },
   { name:'커뮤니티', tabs:['공지사항','FAQ','자료실','포토갤러리'].map(n => ({name:n})) },
   { name:'학생활동', tabs:['학생회 소개','학술동아리'].map(n => ({name:n})) },
-  { name:'취업지원', tabs:[], note:'취업&공모 게시판 단일 페이지' }
+  { name:'취업지원', tabs:[], note:'취업&공모 게시판 단일 페이지' },
+  { name:'이용안내', tabs:['사이트맵','로그인'].map(n => ({name:n})) }
 ];
 
 const state = { m:2, t:0 };   // 처음 열면 교수소개 › 첫 탭
