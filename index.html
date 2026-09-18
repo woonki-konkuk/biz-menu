@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>경영학과 메뉴 구성 시안</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
+<style>
+@font-face{font-family:'S-Core Dream';font-weight:500;font-display:swap;src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff')}
+@font-face{font-family:'S-Core Dream';font-weight:700;font-display:swap;src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff')}
+
+:root{
+  color-scheme:light;
+  --ku-green:#005128; --green-bright:#18944A;
+  --ink:#1A211D; --ink-2:#4F5B55; --ink-3:#7B8680;
+  --line:#D8E0DA; --line-strong:#B9C6BE;
+  --ground:#F4F7F5; --surface:#FFFFFF;
+  --display:'S-Core Dream','Pretendard',-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --body:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+  --wrap:1140px; --gutter:24px;
+}
+*,*::before,*::after{box-sizing:border-box}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;word-break:keep-all;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{appearance:none;background:none;border:0;font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid var(--green-bright);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.25;font-weight:700}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter)}
+
+/* ── 헤더: 유틸 + 로고 + 상단 메뉴 (드롭다운 없음) ── */
+.hdr{background:var(--surface);border-bottom:1px solid var(--line)}
+.util{display:flex;justify-content:flex-end;gap:18px;font-size:12px;color:var(--ink-3);padding:8px 0;border-bottom:1px solid var(--line)}
+.util a:hover{color:var(--ku-green)}
+.bar{display:flex;align-items:stretch;justify-content:space-between;gap:32px}
+.logo{display:flex;align-items:center;gap:12px;padding:16px 0}
+.logo .ku{display:inline-grid;place-items:center;width:44px;height:44px;border:2px solid var(--ku-green);color:var(--ku-green);font-family:var(--display);font-weight:700;font-size:15px;border-radius:3px}
+.logo .name{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.1}
+.logo .name small{display:block;font-family:var(--body);font-weight:500;font-size:11px;color:var(--ink-3);letter-spacing:.04em;margin-bottom:2px}
+.gnb{display:flex;align-items:stretch;gap:4px}
+.gnb button{position:relative;font-family:var(--display);font-weight:500;font-size:17px;padding:0 16px;color:var(--ink)}
+.gnb button::after{content:"";position:absolute;left:16px;right:16px;bottom:-1px;height:3px;background:var(--ku-green);opacity:0;transition:opacity .15s}
+.gnb button:hover{color:var(--ku-green)}
+.gnb button[aria-current="true"]{color:var(--ku-green);font-weight:700}
+.gnb button[aria-current="true"]::after{opacity:1}
+
+/* ── 하위 메뉴 = 탭 (헤더 바로 아래) ── */
+.tabs-band{background:var(--ground);border-bottom:1px solid var(--line)}
+.tabs-band[hidden]{display:none}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{padding:15px 18px 12px;font-family:var(--display);font-weight:500;font-size:15px;color:var(--ink-2);white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs button:hover{color:var(--ku-green)}
+.tabs button[aria-current="true"]{color:var(--ku-green);font-weight:700;border-bottom-color:var(--ku-green)}
+.tabs .ext::after{content:" ↗";font-size:12px;color:var(--ink-3)}
+
+/* 3단계 메뉴가 있는 탭: 탭 아래 작은 필 */
+.subs{display:flex;gap:8px;flex-wrap:wrap;padding:18px 0 0}
+.subs[hidden]{display:none}
+.subs button{border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);padding:5px 14px;font-size:13px;color:var(--ink-2)}
+.subs button:hover{border-color:var(--ku-green);color:var(--ku-green)}
+.subs button[aria-current="true"]{background:var(--ku-green);border-color:var(--ku-green);color:#fff}
+
+/* ── 본문 자리 (히어로 없음, 제목 한 줄로 시작) ── */
+.page{padding:30px 0 60px}
+.crumb{font-size:13px;color:var(--ink-3);margin-bottom:8px}
+.crumb b{font-weight:500;color:var(--ink-2)}
+.page h1{font-size:26px;letter-spacing:-.01em}
+.ph{margin-top:24px;min-height:240px;display:grid;place-items:center;text-align:center;border:1px dashed var(--line-strong);border-radius:6px;color:var(--ink-3);font-size:14px;line-height:1.7;background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,81,40,.045) 14px 28px)}
+
+/* ── 메뉴 구조 한눈에 보기 ── */
+.ia{background:var(--ground);border-top:1px solid var(--line);padding:44px 0 64px}
+.ia h2{font-size:19px}
+.ia .note{font-size:14px;color:var(--ink-2);margin:6px 0 26px}
+.cols{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+.col{background:var(--surface);border:1px solid var(--line);padding:14px 16px 16px}
+.col h3{font-size:15px;color:var(--ku-green);padding-bottom:9px;border-bottom:2px solid var(--ku-green);margin-bottom:8px}
+.col li{font-size:14px;padding:4px 0;line-height:1.5}
+.col li.sub{padding-left:12px;font-size:13px;color:var(--ink-2)}
+.col li.sub::before{content:"– "}
+.col li.muted{font-size:13px;color:var(--ink-3)}
+.changes{margin-top:30px;font-size:14px;color:var(--ink-2)}
+.changes li{padding:3px 0}
+.changes li::before{content:"· ";color:var(--ku-green);font-weight:700}
+
+@media (max-width:900px){
+  .bar{flex-wrap:wrap}
+  .gnb{flex-wrap:wrap;padding-bottom:8px}
+  .gnb button{padding:10px 12px}
+  .cols{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap">
+    <div class="util">
+      <a href="#">건국대학교</a><a href="#">ENGLISH</a><a href="#">사이트맵</a><a href="#">로그인</a>
+    </div>
+    <div class="bar">
+      <a class="logo" href="#"><span class="ku">KU</span><span class="name"><small>KONKUK UNIVERSITY</small>경영학과</span></a>
+      <nav class="gnb" id="gnb" aria-label="주 메뉴"></nav>
+    </div>
+  </div>
+</header>
+
+<div class="tabs-band" id="tabsBand">
+  <div class="wrap">
+    <nav class="tabs" id="tabs" aria-label="하위 메뉴"></nav>
+  </div>
+</div>
+
+<main class="page">
+  <div class="wrap">
+    <div class="subs" id="subs" hidden></div>
+    <p class="crumb" id="crumb"></p>
+    <h1 id="title"></h1>
+    <div class="ph" id="ph"></div>
+  </div>
+</main>
+
+<section class="ia">
+  <div class="wrap">
+    <h2>메뉴 구조 한눈에 보기</h2>
+    <p class="note">상단 메뉴 6개 · 하위 메뉴는 탭 · 3단계는 탭 아래 작은 버튼. 위 헤더에서 직접 클릭해 보세요.</p>
+    <div class="cols" id="cols"></div>
+    <ul class="changes">
+      <li>서브페이지 상단의 큰 히어로 배너(사진·문구·브레드크럼) 제거 → 제목 한 줄로 바로 시작</li>
+      <li>상단 메뉴 마우스오버 드롭다운 제거 → 클릭하면 해당 섹션 첫 페이지로 이동, 하위 메뉴는 탭으로 표시</li>
+      <li>학과소개는 통합 단일 페이지(탭 없음), 취업지원도 단일 게시판</li>
+      <li>교수소개 탭은 분야별로 예시 구성 (현재 사이트의 일반전임·외국인전임·산학협력 구분으로 바꿔도 됨)</li>
+      <li>이용안내(사이트맵·로그인)는 상단 메뉴에서 빼고 헤더 유틸 링크로 이동</li>
+    </ul>
+  </div>
+</section>
+
+<script>
+const MENU = [
+  { name:'학과소개', tabs:[], note:'통합 단일 페이지 — 하위 탭 없음' },
+  { name:'교육과정', tabs:[
+      { name:'교육과정' },
+      { name:'졸업요건', sub:['졸업요건','이수학점 및 필수과목'] },
+      { name:'장학제도', sub:['학교 장학','경영학과 장학'] },
+      { name:'학사일정', ext:true } ] },
+  { name:'교수소개', tabs:['인사조직','재무관리','마케팅','운영관리·경영과학','전략·국제경영','회계','경영정보','명예·겸임·초빙'].map(n => ({name:n})) },
+  { name:'커뮤니티', tabs:['공지사항','FAQ','자료실','포토갤러리'].map(n => ({name:n})) },
+  { name:'학생활동', tabs:['학생회 소개','학술동아리'].map(n => ({name:n})) },
+  { name:'취업지원', tabs:[], note:'취업&공모 게시판 단일 페이지' }
+];
+
+const state = { m:2, t:0, s:0 };   // 처음 열면 교수소개 › 첫 탭
+
+function btn(label, cls, on, current){
+  const b = document.createElement('button');
+  b.type = 'button'; b.textContent = label;
+  if (cls) b.className = cls;
+  if (current) b.setAttribute('aria-current','true');
+  b.addEventListener('click', on);
+  return b;
+}
+
+function render(){
+  const menu = MENU[state.m];
+  const tab  = menu.tabs[state.t];
+
+  const gnb = document.getElementById('gnb'); gnb.replaceChildren();
+  MENU.forEach((m,i) => gnb.append(btn(m.name, '', () => { state.m=i; state.t=0; state.s=0; render(); }, i===state.m)));
+
+  const band = document.getElementById('tabsBand'), tabs = document.getElementById('tabs');
+  band.hidden = menu.tabs.length === 0; tabs.replaceChildren();
+  menu.tabs.forEach((t,i) => tabs.append(btn(t.name, t.ext ? 'ext' : '', () => { state.t=i; state.s=0; render(); }, i===state.t)));
+
+  const subs = document.getElementById('subs'); subs.replaceChildren();
+  subs.hidden = !(tab && tab.sub);
+  if (tab && tab.sub) tab.sub.forEach((s,i) => subs.append(btn(s, '', () => { state.s=i; render(); }, i===state.s)));
+
+  const leaf = tab ? (tab.sub ? tab.sub[state.s] : tab.name) : menu.name;
+  const path = [menu.name, tab && tab.name, tab && tab.sub && tab.sub[state.s]].filter(Boolean);
+  document.getElementById('crumb').innerHTML = '홈 › ' + path.map((p,i) => i===path.length-1 ? '<b>'+p+'</b>' : p).join(' › ');
+  document.getElementById('title').textContent = leaf;
+  document.getElementById('ph').textContent = tab && tab.ext
+    ? '외부 링크 (Outlook 학사일정) — 새 창으로 열림'
+    : '본문 영역 — 내용은 생략' + (menu.note ? ' · ' + menu.note : '');
+}
+
+function overview(){
+  const cols = document.getElementById('cols');
+  MENU.forEach(m => {
+    const col = document.createElement('div'); col.className = 'col';
+    const h = document.createElement('h3'); h.textContent = m.name; col.append(h);
+    const ul = document.createElement('ul');
+    if (!m.tabs.length) { const li = document.createElement('li'); li.className='muted'; li.textContent = m.note; ul.append(li); }
+    m.tabs.forEach(t => {
+      const li = document.createElement('li'); li.textContent = t.name + (t.ext ? ' ↗' : ''); ul.append(li);
+      (t.sub||[]).forEach(s => { const sl = document.createElement('li'); sl.className='sub'; sl.textContent = s; ul.append(sl); });
+    });
+    col.append(ul); cols.append(col);
+  });
+}
+
+render(); overview();
+</script>
+</body>
+</html>
