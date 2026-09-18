@@ -60,24 +60,10 @@ ul{margin:0;padding:0;list-style:none}
 .page h1{font-size:28px;letter-spacing:-.01em}
 .ph{margin-top:22px;min-height:240px;display:grid;place-items:center;text-align:center;border:1px dashed var(--line-strong);border-radius:6px;color:var(--ink-3);font-size:14px;line-height:1.7;background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,81,40,.045) 14px 28px)}
 
-/* ── 메뉴 구조 한눈에 보기 ── */
-.ia{background:var(--ground);border-top:1px solid var(--line);padding:44px 0 64px}
-.ia h2{font-size:19px}
-.ia .note{font-size:14px;color:var(--ink-2);margin:6px 0 26px}
-.cols{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
-.col{background:var(--surface);border:1px solid var(--line);padding:14px 16px 16px}
-.col h3{font-size:15px;color:var(--ku-green);padding-bottom:9px;border-bottom:2px solid var(--ku-green);margin-bottom:8px}
-.col li{font-size:14px;padding:4px 0;line-height:1.5}
-.col li.muted{font-size:13px;color:var(--ink-3)}
-.changes{margin-top:30px;font-size:14px;color:var(--ink-2)}
-.changes li{padding:3px 0}
-.changes li::before{content:"· ";color:var(--ku-green);font-weight:700}
-
 @media (max-width:900px){
   .bar{flex-wrap:wrap}
   .gnb{flex-wrap:wrap;padding-bottom:8px}
   .gnb button{padding:10px 12px}
-  .cols{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 </style>
 </head>
@@ -102,22 +88,6 @@ ul{margin:0;padding:0;list-style:none}
     <div class="ph" id="ph"></div>
   </div>
 </main>
-
-<section class="ia">
-  <div class="wrap">
-    <h2>메뉴 구조 한눈에 보기</h2>
-    <p class="note">상단 메뉴 6개 · 하위 메뉴는 모두 같은 단계의 탭으로 페이지 안에 표시. 위 헤더에서 직접 클릭해 보세요.</p>
-    <div class="cols" id="cols"></div>
-    <ul class="changes">
-      <li>서브페이지 상단의 큰 히어로 배너(사진·문구·브레드크럼) 제거 → 제목 한 줄로 바로 시작</li>
-      <li>상단 메뉴 마우스오버 드롭다운 제거 → 클릭하면 해당 섹션 페이지로 이동, 하위 메뉴는 페이지 안 제목 아래 탭 메뉴로 표시</li>
-      <li>3단계 메뉴(졸업요건·장학제도 아래)는 없애고 같은 단계의 탭으로 펼침</li>
-      <li>학과소개는 통합 단일 페이지(탭 없음), 취업지원도 단일 게시판</li>
-      <li>교수소개 탭은 분야별로 예시 구성 (현재 사이트의 일반전임·외국인전임·산학협력 구분으로 바꿔도 됨)</li>
-      <li>이용안내(사이트맵·로그인)는 상단 메뉴에서 빼고 헤더 유틸 링크로 이동</li>
-    </ul>
-  </div>
-</section>
 
 <script>
 const MENU = [
@@ -159,19 +129,7 @@ function render(){
     : '본문 영역 — 내용은 생략' + (tab ? ' · ' + tab.name : '') + (menu.note ? ' · ' + menu.note : '');
 }
 
-function overview(){
-  const cols = document.getElementById('cols');
-  MENU.forEach(m => {
-    const col = document.createElement('div'); col.className = 'col';
-    const h = document.createElement('h3'); h.textContent = m.name; col.append(h);
-    const ul = document.createElement('ul');
-    if (!m.tabs.length) { const li = document.createElement('li'); li.className='muted'; li.textContent = m.note; ul.append(li); }
-    m.tabs.forEach(t => { const li = document.createElement('li'); li.textContent = t.name + (t.ext ? ' ↗' : ''); ul.append(li); });
-    col.append(ul); cols.append(col);
-  });
-}
-
-render(); overview();
+render();
 </script>
 </body>
 </html>
