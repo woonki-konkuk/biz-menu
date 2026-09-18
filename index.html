@@ -516,7 +516,7 @@ const MENU = [
       { name:'학사일정', ext:'Outlook 학사일정' } ] },
   { name:'교수소개', desc:'분야별 교수진 소개', tabs:['전체', ...FIELDS, '산학·겸임·초빙', '명예교수'].map(n => ({ name:n, view:{kind:'blank'} })) },   // 하위 내용 스케치 없음
   { name:'커뮤니티', desc:'공지사항 · FAQ · 자료실 · 포토갤러리', tabs:[
-      { name:'공지사항', view:{kind:'board', rows:6} },
+      { name:'공지사항', subs:['전체','학사','졸업','장학','기타'], view:{kind:'board', rows:6} },   // 게시판 분류 → 세부 탭
       { name:'FAQ', view:{kind:'faq', rows:5} },
       { name:'자료실', view:{kind:'board', rows:6, file:true} },
       { name:'포토갤러리', view:{kind:'gallery', n:6} } ] },
@@ -545,9 +545,10 @@ const CURR_ROWS  = [
   ['2-2','전선','BNBA11872','소비자행동론','CONSUMER BEHAVIOR','3(3)']
 ];
 
+/* 세부 탭(탭 아래 툴바 줄) — 교육과정·공지사항 등 */
+const SEG = subs => `<div class="seg" id="seg">${subs.map((n,i) => `<button type="button"${i===state.sub?' aria-current="true"':''}>${n}</button>`).join('')}</div>`;
 /* 교육과정 탭의 툴바: 년도 선택 + 세부 탭 */
-const CURR_BAR = () => `<select aria-label="교육과정 년도">${CURR_YEARS.map(y => `<option${y==='2026년'?' selected':''}>${y}</option>`).join('')}</select>
-  <div class="seg" id="seg">${CURR_SUBS.map((n,i) => `<button type="button"${i===state.sub?' aria-current="true"':''}>${n}</button>`).join('')}</div>`;
+const CURR_BAR = () => `<select aria-label="교육과정 년도">${CURR_YEARS.map(y => `<option${y==='2026년'?' selected':''}>${y}</option>`).join('')}</select>${SEG(CURR_SUBS)}`;
 
 /* ── 스케치 렌더러 ── */
 const sk = w => `<span class="sk w${w}"></span>`;
@@ -641,7 +642,7 @@ function render(){
   document.body.classList.toggle('is-home', !!menu.home);
 
   const view = tab ? (tab.ext ? {kind:'ext', name:tab.name, ext:tab.ext} : tab.view) : menu.view;
-  document.getElementById('subbar').innerHTML = view.kind === 'curriculum' ? CURR_BAR() : (tab && tab.lead ? `<p class="lead">${tab.lead}</p>` : '');
+  document.getElementById('subbar').innerHTML = view.kind === 'curriculum' ? CURR_BAR() : (tab && tab.subs ? SEG(tab.subs) : (tab && tab.lead ? `<p class="lead">${tab.lead}</p>` : ''));
   document.getElementById('content').innerHTML = VIEW[view.kind](view);
   document.querySelectorAll('#seg button').forEach((b,i) => b.addEventListener('click', () => { state.sub=i; render(); }));
   document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => {
