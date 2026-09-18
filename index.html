@@ -467,7 +467,7 @@ document.querySelectorAll('img[data-img]').forEach(i => { i.src = IMG[i.dataset.
 const FIELDS = ['인사조직','재무관리','마케팅','운영관리·경영과학','전략·국제경영','회계','경영정보'];
 
 const MENU = [
-  { name:'홈', home:true, tabs:[], view:{kind:'home'} },
+  { name:'홈', home:true, tabs:[], view:{kind:'home'} },   // 로고 클릭 시 (상단 메뉴에는 표시 안 함)
   { name:'학과소개', tabs:[], view:{kind:'intro'} },   // 하위 4개 메뉴를 한 페이지로 통합
   { name:'교육과정', tabs:[
       { name:'교육과정', view:{kind:'curriculum'} },
@@ -591,7 +591,8 @@ function render(){
   const tab  = menu.tabs[state.t];
 
   const gnb = document.getElementById('gnb'); gnb.replaceChildren();
-  MENU.forEach((m,i) => gnb.append(btn(m.name, '', () => { state.m=i; state.t=0; state.sub=0; render(); }, i===state.m)));
+  MENU.forEach((m,i) => { if (m.home) return;   // 홈은 상단 메뉴에 없음 — 로고(경영학과) 클릭으로만
+    gnb.append(btn(m.name, '', () => { state.m=i; state.t=0; state.sub=0; render(); }, i===state.m)); });
 
   const tabs = document.getElementById('tabs');
   tabs.hidden = menu.tabs.length === 0; tabs.replaceChildren();
