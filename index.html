@@ -37,15 +37,15 @@ ul{margin:0;padding:0;list-style:none}
 .logo .ku{display:inline-grid;place-items:center;width:44px;height:44px;border:2px solid var(--ku-green);color:var(--ku-green);font-family:var(--display);font-weight:700;font-size:15px;border-radius:3px}
 .logo .name{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.1}
 .logo .name small{display:block;font-family:var(--body);font-weight:500;font-size:11px;color:var(--ink-3);letter-spacing:.04em;margin-bottom:2px}
-.gnb{display:flex;align-items:stretch;gap:2px}
-.gnb button{position:relative;font-family:var(--display);font-weight:500;font-size:17px;padding:0 14px;color:var(--ink)}
-.gnb button::after{content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:3px;background:var(--ku-green);opacity:0;transition:opacity .15s}
+.gnb{display:flex;align-items:center;gap:2px}
+.gnb button{position:relative;font-family:var(--display);font-weight:500;font-size:17px;padding:6px 14px 9px;color:var(--ink)}
+.gnb button::after{content:"";position:absolute;left:14px;right:14px;bottom:0;height:3px;background:var(--ku-green);opacity:0;transition:opacity .15s}
 .gnb button:hover{color:var(--ku-green)}
 .gnb button[aria-current="true"]{color:var(--ku-green);font-weight:700}
 .gnb button[aria-current="true"]::after{opacity:1}
 
 /* ── 하위 메뉴 = 페이지 안의 탭 (제목 아래) ── */
-.tabs{display:flex;gap:2px;margin-top:22px;border-bottom:1px solid var(--line-strong);overflow-x:auto;scrollbar-width:none}
+.tabs{display:flex;gap:2px;margin-top:10px;border-bottom:1px solid var(--line-strong);overflow-x:auto;scrollbar-width:none}
 .tabs[hidden]{display:none}
 .tabs::-webkit-scrollbar{display:none}
 .tabs button{padding:12px 18px 10px;font-family:var(--display);font-weight:500;font-size:15px;color:var(--ink-2);white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px}
@@ -53,30 +53,21 @@ ul{margin:0;padding:0;list-style:none}
 .tabs button[aria-current="true"]{color:var(--ku-green);font-weight:700;border-bottom-color:var(--ku-green)}
 .tabs .ext::after{content:" ↗";font-size:12px;color:var(--ink-3)}
 
-/* ── 버전 B: 사진을 크게, 아래로 갈수록 흰 배경에 녹아드는 그라데이션 (제목은 사진 하단에) ── */
-.hero{display:none;position:relative;height:clamp(170px,22vw,260px);overflow:hidden;background:var(--ground)}
+/* ── 사진 히어로: 아래로 갈수록 흰 배경에 녹아드는 그라데이션, 페이지 제목은 사진 하단에 ── */
+.hero{display:block;position:relative;height:clamp(170px,22vw,260px);overflow:hidden;background:var(--ground)}
 .hero img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block}
 .hero::after{content:"";position:absolute;inset:0;background:
   linear-gradient(90deg,rgba(0,81,40,.42) 0%,rgba(0,81,40,.12) 45%,rgba(0,81,40,0) 70%),
   linear-gradient(180deg,rgba(255,255,255,.08) 0%,rgba(255,255,255,.5) 40%,rgba(255,255,255,.88) 72%,#fff 100%)}
 .hero .wrap{position:absolute;left:0;right:0;bottom:0;z-index:1}
 .hero h1{font-size:34px;letter-spacing:-.01em;padding-bottom:4px;color:var(--ku-green)}
-html[data-ver="b"] .hero{display:block}
-html[data-ver="b"] .page{padding-top:0}
-html[data-ver="b"] .page > .wrap > h1{display:none}
-html[data-ver="b"] .tabs{margin-top:10px}
-html[data-ver="b"] .emblem-wm{top:-12px;opacity:.07}
-/* A/B 비교 스위치 (시안 확인용) */
-.ver{position:fixed;right:14px;bottom:14px;z-index:5;display:flex;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);font-size:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.07)}
-.ver button{padding:7px 13px;color:var(--ink-2)}
-.ver button[aria-current="true"]{background:var(--ku-green);color:#fff}
 
-/* ── 본문 (히어로 없음, 제목 한 줄로 시작) ── */
-.page{position:relative;overflow:hidden;padding:36px 0 80px}
+/* ── 본문 ── */
+.page{position:relative;overflow:hidden;padding:0 0 80px}
 .page > .wrap{position:relative;z-index:1}
 
 /* ── 건국대 엠블럼 워터마크 (오른쪽 상단) — 링은 고정, 안쪽 황소만 걷는 박자로 움직임 ── */
-.emblem-wm{position:absolute;top:-24px;right:-64px;z-index:0;width:min(380px,38vw);opacity:.09;pointer-events:none;user-select:none;-webkit-user-select:none;will-change:transform;transform-origin:50% 45%}
+.emblem-wm{position:absolute;top:-12px;right:-64px;z-index:0;width:min(380px,38vw);opacity:.07;pointer-events:none;user-select:none;-webkit-user-select:none;will-change:transform;transform-origin:50% 45%}
 .emblem-wm img{width:100%;display:block}
 .emblem-ring{
   -webkit-mask-image:radial-gradient(circle closest-side at 50% 50%,transparent 69%,#000 70%),radial-gradient(ellipse 9.5% 5.5% at 53% 87.7%,transparent 96%,#000 100%);
@@ -94,7 +85,6 @@ html[data-ver="b"] .emblem-wm{top:-12px;opacity:.07}
   75%{transform:translateY(-3px) rotate(-.8deg)}
   100%{transform:translateY(0) rotate(0deg)}}
 @media (prefers-reduced-motion:reduce){.emblem-bull{animation:none}}
-.page h1{font-size:28px;letter-spacing:-.01em}
 /* 탭 아래 툴바 줄 — 내용이 있든 없든 같은 높이라 본문 시작 위치가 탭마다 같음 */
 .sub-bar{display:flex;align-items:center;gap:18px;flex-wrap:wrap;min-height:38px;margin-top:20px}
 .lead{font-size:15px;color:var(--ink-2)}
@@ -251,7 +241,7 @@ html[data-ver="b"] .emblem-wm{top:-12px;opacity:.07}
   </div>
 </header>
 
-<!-- 버전 B에서만 표시: 사진 히어로 -->
+<!-- 사진 히어로 (페이지 제목 포함) -->
 <div class="hero">
   <img src="hero.jpg" alt="">
   <div class="wrap"><h1 id="heroTitle"></h1></div>
@@ -263,17 +253,11 @@ html[data-ver="b"] .emblem-wm{top:-12px;opacity:.07}
     <img class="emblem-bull" src="konkuk-emblem.png" alt="">
   </div>
   <div class="wrap">
-    <h1 id="title"></h1>
     <nav class="tabs" id="tabs" aria-label="하위 메뉴"></nav>
     <div class="sub-bar" id="subbar"></div>
     <div class="content" id="content"></div>
   </div>
 </main>
-
-<div class="ver" role="group" aria-label="시안 버전">
-  <button type="button" data-v="a">A 기본</button>
-  <button type="button" data-v="b">B 사진 히어로</button>
-</div>
 
 <!-- 학과소개 본문: 학과소개_통합_시안_v1.html 의 4개 섹션 (이미지·지도 자리는 실제 적용 시 교체) -->
 <template id="intro-tpl">
@@ -504,7 +488,6 @@ function render(){
   tabs.hidden = menu.tabs.length === 0; tabs.replaceChildren();
   menu.tabs.forEach((t,i) => tabs.append(btn(t.name, t.ext ? 'ext' : '', () => { state.t=i; state.sub=0; render(); }, i===state.t)));
 
-  document.getElementById('title').textContent = menu.name;
   document.getElementById('heroTitle').textContent = menu.name;
 
   const view = tab ? (tab.ext ? {kind:'ext', name:tab.name, ext:tab.ext} : tab.view) : menu.view;
@@ -514,15 +497,6 @@ function render(){
 }
 
 render();
-
-/* A/B 버전 스위치 — #b 로 열면 사진 히어로 버전 */
-function setVer(v){
-  document.documentElement.dataset.ver = v;
-  history.replaceState(null, '', v === 'b' ? '#b' : location.pathname + location.search);
-  document.querySelectorAll('.ver button').forEach(b => b.setAttribute('aria-current', String(b.dataset.v === v)));
-}
-document.querySelectorAll('.ver button').forEach(b => b.addEventListener('click', () => setVer(b.dataset.v)));
-setVer(location.hash === '#b' ? 'b' : 'a');
 
 /* 엠블럼: 스크롤보다 느리게 흐르고, 마우스 위치에 따라 살짝 기울어짐 */
 (() => {
