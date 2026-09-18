@@ -83,6 +83,71 @@ ul{margin:0;padding:0;list-style:none}
 .note{margin-top:14px;font-size:13px;color:var(--ink-3)}
 .note a{color:var(--green-bright);text-decoration:underline;text-underline-offset:3px}
 
+/* ── 학과소개: 통합 페이지 시안 본문 그대로 (학과소개_통합_시안_v1.html에서 이식, .intro 스코프) ── */
+.intro{font-size:17px;line-height:1.8;overflow-wrap:anywhere}
+.intro h2,.intro h3{text-wrap:balance}
+.intro .imgph{display:grid;place-items:center;text-align:center;padding:16px;border:1.5px dashed var(--line-strong);color:var(--ink-3);font-size:12.5px;line-height:1.5;background:repeating-linear-gradient(45deg,#F3F6F4 0 10px,#EBF0ED 10px 20px)}
+.intro .imgph b{display:block;font-weight:700;color:var(--ink-2);font-size:14px;margin-bottom:2px}
+.intro .sec{padding-block:52px}
+.intro .sec:first-child{padding-top:6px}
+.intro .sec:last-child{padding-bottom:0}
+.intro .sec.band{background:#E6EFE9;padding:40px 44px}
+.intro .sec.tint{background:var(--ground);padding:44px;margin-top:52px}
+.intro .sec-head{margin-bottom:22px}
+.intro .eyebrow{font-family:var(--display);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--green-bright)}
+.intro .sec-head h2{font-size:clamp(24px,2.6vw,30px);letter-spacing:-.02em;margin-top:6px}
+/* 학과소개 */
+.intro .about{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:start}
+.intro .about .text p{max-width:40em;font-size:18px;line-height:1.9}
+.intro .about .text strong{color:var(--ku-green);font-weight:600}
+.intro .fields h3{font-family:var(--body);font-size:14px;font-weight:600;color:var(--ink-2);margin-bottom:12px;display:flex;justify-content:space-between;align-items:baseline}
+.intro .fields h3 span{font-family:var(--display);font-weight:700;color:var(--ku-green);font-size:16px}
+.intro .fields ul{display:flex;flex-wrap:wrap;gap:6px 20px}
+.intro .fields li{display:inline-flex;align-items:baseline;gap:5px;font-size:16px;font-weight:500;line-height:1.6}
+.intro .fields li::before{content:"#";font-family:var(--display);font-weight:700;color:var(--green-bright)}
+/* 교육목표 */
+.intro .goals{border-top:1px solid var(--ink)}
+.intro .goals li{display:grid;grid-template-columns:minmax(170px,240px) 1fr;gap:4px 32px;align-items:baseline;padding:15px 0;border-bottom:1px solid var(--line-strong)}
+.intro .goals .en{font-family:var(--display);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-bright)}
+.intro .goals h3{font-size:20px;color:var(--ku-green);margin:2px 0 0;letter-spacing:-.01em}
+.intro .goals p{font-size:15px;line-height:1.7;color:var(--ink-2)}
+/* 인사말 */
+.intro .greet{display:grid;grid-template-columns:minmax(260px,320px) minmax(0,1fr);gap:44px;align-items:start}
+.intro .chairs{display:grid;gap:14px}
+.intro .chair{display:grid;grid-template-columns:108px 1fr;background:var(--surface);border:1px solid var(--line)}
+.intro .chair .imgph{border-width:0 1.5px 0 0;padding:8px;font-size:11px}
+.intro .chair .imgph b{font-size:12px}
+.intro .chair .body{padding:12px 14px 14px}
+.intro .chair .role{font-size:11.5px;color:var(--green-bright);font-weight:700;letter-spacing:.1em}
+.intro .chair h3{font-size:18px;margin:2px 0 10px}
+.intro .chair h3 small{font-family:var(--body);font-size:13px;font-weight:500;color:var(--ink-2);margin-left:4px}
+.intro .chair dl{display:grid;gap:5px;font-size:13px;line-height:1.45}
+.intro .chair dt{color:var(--ink-3);font-size:11px;letter-spacing:.06em}
+.intro .chair dd{overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.intro .chair .consult{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--ku-green);font-weight:600;line-height:1.5;display:grid;grid-template-columns:auto 1fr;gap:6px}
+.intro .chair .consult::before{content:"상담";font-size:10.5px;letter-spacing:.08em;color:var(--ink-3);font-weight:700;padding-top:3px}
+.intro .greet .text{max-width:40em}
+.intro .greet .text p{margin-bottom:1.2em}
+.intro .greet .text p.open{font-family:var(--display);font-weight:500;font-size:21px;line-height:1.6;color:var(--ku-green);margin-bottom:1.1em}
+.intro .sign{margin-top:32px;padding-top:20px;border-top:1px solid var(--line-strong);font-size:14px;color:var(--ink-2)}
+.intro .sign b{display:block;font-family:var(--display);font-weight:700;font-size:17px;color:var(--ink);margin-top:2px}
+/* 찾아오시는길 */
+.intro .loc{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:52px;align-items:start}
+.intro .addr{border-top:1px solid var(--ink);padding-top:20px;margin-bottom:28px}
+.intro .addr dl{display:grid;grid-template-columns:auto 1fr;gap:10px 22px;font-size:16px}
+.intro .addr dt{color:var(--ink-3);font-size:13px;padding-top:5px;white-space:nowrap}
+.intro .addr dd{font-weight:500;line-height:1.6;font-variant-numeric:tabular-nums}
+.intro .map{aspect-ratio:4/3}
+.intro .way{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:20px 0;border-top:1px solid var(--line)}
+.intro .way:last-child{border-bottom:1px solid var(--line)}
+.intro .way .ico{width:44px;height:44px;border:1px solid var(--line-strong);display:grid;place-items:center;color:var(--ku-green);background:var(--surface)}
+.intro .way h3{font-size:16px;margin-bottom:8px}
+.intro .way li{font-size:15px;display:grid;grid-template-columns:minmax(0,auto) 1fr;gap:12px;padding:3px 0;line-height:1.6}
+.intro .way li b{font-weight:600;color:var(--ink-2)}
+.intro .way li span{font-variant-numeric:tabular-nums}
+@media (max-width:960px){.intro .about,.intro .loc{grid-template-columns:1fr;gap:36px}}
+@media (max-width:640px){.intro .greet{grid-template-columns:1fr;gap:28px}.intro .goals li{grid-template-columns:1fr;gap:2px}.intro .sec.band,.intro .sec.tint{padding:28px 20px}}
+
 /* ── 하위 내용 스케치 (구조만, 값은 회색 바) ── */
 .sk{display:inline-block;height:10px;border-radius:5px;background:var(--bar);vertical-align:middle}
 .sk.w1{width:18%}.sk.w2{width:32%}.sk.w3{width:48%}.sk.w4{width:64%}.sk.w5{width:82%}.sk.w6{width:100%}
@@ -181,6 +246,128 @@ ul{margin:0;padding:0;list-style:none}
   </div>
 </main>
 
+<!-- 학과소개 본문: 학과소개_통합_시안_v1.html 의 4개 섹션 (이미지·지도 자리는 실제 적용 시 교체) -->
+<template id="intro-tpl">
+<section class="sec">
+  <div class="about">
+    <div class="text">
+      <p><strong>경영학과</strong>는 인사조직, 재무관리, 마케팅, 운영관리 및 경영과학, 전략 및 국제경영, 회계, 경영정보 등 기업활동에 필수적인 모든 내용을 다양하고 밀도있게 다루어, 극심한 경쟁 속에서 미래에 기업의 경영자가 갖추어야 할 관리능력의 배양에 중점을 둡니다.</p>
+    </div>
+    <div class="fields">
+      <h3>전공 분야 <span>7</span></h3>
+      <ul>
+        <li>인사조직</li><li>재무관리</li><li>마케팅</li><li>운영관리 및 경영과학</li><li>전략 및 국제경영</li><li>회계</li><li>경영정보</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec band">
+  <div class="sec-head">
+    <div>
+      <p class="eyebrow">Educational Goals</p>
+      <h2>교육목표</h2>
+    </div>
+  </div>
+  <ul class="goals">
+    <li><div><p class="en">Globalization</p><h3>세계인</h3></div><p>국제적 안목을 가지고 공동체에 유익한 영향을 미치는 세계인 양성</p></li>
+    <li><div><p class="en">Practicality</p><h3>실무형 경영인</h3></div><p>이론과 실무감각 및 팀워크 능력을 겸비한 실무형 경영인 양성</p></li>
+    <li><div><p class="en">Leadership</p><h3>전문 경영인</h3></div><p>효율적 의사소통 능력과 리더십을 가지고 변화에 주도적으로 대처할 수 있는 전문 경영인 양성</p></li>
+    <li><div><p class="en">Integrity</p><h3>윤리 경영인</h3></div><p>환경 친화적 의사결정 능력과 윤리적 가치체계를 갖춘 윤리 경영인 양성</p></li>
+  </ul>
+</section>
+
+<section class="sec tint">
+  <div class="greet">
+    <div class="chairs">
+      <article class="chair">
+        <div class="imgph"><span><b>이미지 추가</b>학과장 사진 · 3:4</span></div>
+        <div class="body">
+          <p class="role">학과장</p>
+          <h3>홍운기 <small>교수</small></h3>
+          <dl>
+            <dt>연구실</dt><dd>경영관 508호</dd>
+            <dt>연락처</dt><dd>02-450-3607</dd>
+            <dt>E-Mail</dt><dd>woonki@konkuk.ac.kr</dd>
+          </dl>
+          <p class="consult">교내(외) 장학 추천서 관련</p>
+        </div>
+      </article>
+      <article class="chair">
+        <div class="imgph"><span><b>이미지 추가</b>학과장 사진 · 3:4</span></div>
+        <div class="body">
+          <p class="role">학과장</p>
+          <h3>김효진 <small>교수</small></h3>
+          <dl>
+            <dt>연구실</dt><dd>경영관 509호</dd>
+            <dt>연락처</dt><dd>02-450-3631</dd>
+            <dt>E-Mail</dt><dd>hyojinkim@konkuk.ac.kr</dd>
+          </dl>
+          <p class="consult">교환학생·현장실습 관련</p>
+        </div>
+      </article>
+    </div>
+    <div class="text">
+      <p class="open">안녕하세요. 건국대학교 경영학과 학과장 홍운기, 김효진 교수입니다.</p>
+      <p>1956년 상학과의 이름으로 시작된 우리 경영학과는 오랜 역사를 통해 글로벌 비즈니스 환경에서 필요한 다양한 능력을 개발할 수 있도록 학생들을 지원해 왔습니다. 글로벌 최고 수준의 연구와 교육을 제공하는 것을 목표로 하며, 이론적 지식과 함께 실제 사례 연구, 인턴십, 국제 교류 프로그램을 통해 학생들이 실무 경험을 쌓을 수 있도록 장려하고 있습니다.</p>
+      <p>우리 학과의 노력과 헌신은 국제경영대학발전협의회(AACSB)와 한국경영교육인증원(KABEA)으로부터의 인증을 통해 인정받고 있습니다. 이 인증들은 세계적으로 경영 교육의 우수성을 평가하는 중요한 기준이며, 우리 학과가 교육, 연구, 학생 지원 등 모든 분야에서 최고 수준의 성과를 보이고 있음을 의미합니다.</p>
+      <p>건국대학교 경영학과는 우리 나라를 빛낼 글로벌 경영 인재를 양성하고, 세계적인 수준의 경영학과로서 지속적으로 성장해 나가는 것을 목표로 하고 있습니다. 여러분의 관심과 응원이 우리가 나아가는 길에 큰 힘이 됩니다. 앞으로도 건국대학교 경영학과의 발전을 지켜봐 주시고 함께 응원해 주시길 바랍니다.</p>
+      <p>감사합니다.</p>
+      <p class="sign">건국대학교 경영학과 학과장<b>홍운기 · 김효진</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="loc">
+    <div>
+      <div class="addr">
+        <dl>
+          <dt>주소</dt><dd>(우)05029 서울시 광진구 능동로 120<br>건국대학교 경영관 210호</dd>
+          <dt>전화</dt><dd>02-450-3629</dd>
+          <dt>FAX</dt><dd>02-450-4141</dd>
+        </dl>
+      </div>
+      <div class="map imgph"><span><b>지도 추가</b>기존 카카오맵 위젯 재사용 · 4:3</span></div>
+    </div>
+    <div class="ways">
+      <div class="way">
+        <div class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="16" height="13" rx="2"/><path d="M3 9h16M6 16v2.5M16 16v2.5"/><circle cx="7" cy="12.5" r=".9" fill="currentColor"/><circle cx="15" cy="12.5" r=".9" fill="currentColor"/></svg></div>
+        <div>
+          <h3>버스 이용시</h3>
+          <ul>
+            <li><b>건대역</b><span>240, 721, 2222, 2223, 2224</span></li>
+            <li><b>건국대학교병원 (청담대교 방향)</b><span>240, 721, 2222, 3220, 4212</span></li>
+            <li><b>건국대학교앞</b><span>2223, 2224, 3220</span></li>
+            <li><b>건대앞</b><span>302, 3216</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="way">
+        <div class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 13l1.6-5A2 2 0 0 1 7.5 6.5h7a2 2 0 0 1 1.9 1.5L18 13"/><rect x="3" y="12.5" width="16" height="5" rx="1.5"/><circle cx="7" cy="15" r=".9" fill="currentColor"/><circle cx="15" cy="15" r=".9" fill="currentColor"/></svg></div>
+        <div>
+          <h3>차량 이용시</h3>
+          <ul>
+            <li><b>경부고속도로</b><span>서울 톨게이트를 지나 구리–판교간 고속도로 이용 → 서하남에서 나오거나 올림픽대로 이용 → 잠실대교 또는 올림픽대교를 건너 구의사거리에서 지하철 2호선 방향으로 직진 → 건국대학교 상허문</span></li>
+            <li><b>중부고속도로</b><span>상일·하일 또는 서하남에서 나와 올림픽대교를 건너 직진 → 오른쪽에 어린이대공원, 맞은편에 건국대학교 후문</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="way">
+        <div class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="3" width="12" height="13" rx="2.5"/><path d="M5 9h12M8 16l-1.5 3M14 16l1.5 3"/><circle cx="8.5" cy="12.5" r=".9" fill="currentColor"/><circle cx="13.5" cy="12.5" r=".9" fill="currentColor"/></svg></div>
+        <div>
+          <h3>지하철</h3>
+          <ul>
+            <li><b>2호선</b><span>건대입구역 2번 출구</span></li>
+            <li><b>7호선</b><span>건대입구역 4번 출구 / 어린이대공원역 3번 출구</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</template>
+
 <script>
 const FIELDS = ['인사조직','재무관리','마케팅','운영관리·경영과학','전략·국제경영','회계','경영정보'];
 
@@ -231,13 +418,7 @@ const cyc = (arr, i) => arr[i % arr.length];
 const VIEW = {
   blank: () => `<div class="ph">본문 영역 — 내용은 생략</div>`,
 
-  intro: () => `<dl class="dl">
-    <div><dt>학과소개</dt><dd>인사조직 · 재무관리 · 마케팅 · 운영관리 및 경영과학 · 전략 및 국제경영 · 회계 · 경영정보</dd></div>
-    <div><dt>교육목표</dt><dd>Globalization · Practicality · Leadership · Integrity</dd></div>
-    <div><dt>인사말</dt><dd>학과장 홍운기 · 김효진 교수</dd></div>
-    <div><dt>찾아오시는길</dt><dd>경영관 210호 · 02-450-3629</dd></div>
-  </dl>
-  <p class="note">네 하위 메뉴를 한 페이지에 순서대로 → <a href="https://woonki-konkuk.github.io/biz-intro/" target="_blank" rel="noopener">통합 페이지 시안 보기</a></p>`,
+  intro: () => `<div class="intro">${document.getElementById('intro-tpl').innerHTML}</div>`,
 
   curriculum: () => `
     <div class="curr-bar">
