@@ -13,7 +13,7 @@
   color-scheme:light;
   --ku-green:#005128; --green-bright:#18944A;
   --ink:#1A211D; --ink-2:#4F5B55; --ink-3:#7B8680;
-  --line:#D8E0DA; --line-strong:#B9C6BE;
+  --line:#D8E0DA; --line-strong:#B9C6BE; --bar:#E3E9E5;
   --ground:#F4F7F5; --surface:#FFFFFF;
   --display:'S-Core Dream','Pretendard',-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --body:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
@@ -26,7 +26,7 @@ a{color:inherit;text-decoration:none}
 button{appearance:none;background:none;border:0;font:inherit;color:inherit;cursor:pointer}
 button:focus-visible,a:focus-visible{outline:2px solid var(--green-bright);outline-offset:2px}
 h1,h2,h3{font-family:var(--display);margin:0;line-height:1.25;font-weight:700}
-p{margin:0}
+p,dl,dt,dd{margin:0}
 ul{margin:0;padding:0;list-style:none}
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter)}
 
@@ -37,9 +37,9 @@ ul{margin:0;padding:0;list-style:none}
 .logo .ku{display:inline-grid;place-items:center;width:44px;height:44px;border:2px solid var(--ku-green);color:var(--ku-green);font-family:var(--display);font-weight:700;font-size:15px;border-radius:3px}
 .logo .name{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.1}
 .logo .name small{display:block;font-family:var(--body);font-weight:500;font-size:11px;color:var(--ink-3);letter-spacing:.04em;margin-bottom:2px}
-.gnb{display:flex;align-items:stretch;gap:4px}
-.gnb button{position:relative;font-family:var(--display);font-weight:500;font-size:17px;padding:0 16px;color:var(--ink)}
-.gnb button::after{content:"";position:absolute;left:16px;right:16px;bottom:-1px;height:3px;background:var(--ku-green);opacity:0;transition:opacity .15s}
+.gnb{display:flex;align-items:stretch;gap:2px}
+.gnb button{position:relative;font-family:var(--display);font-weight:500;font-size:17px;padding:0 14px;color:var(--ink)}
+.gnb button::after{content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:3px;background:var(--ku-green);opacity:0;transition:opacity .15s}
 .gnb button:hover{color:var(--ku-green)}
 .gnb button[aria-current="true"]{color:var(--ku-green);font-weight:700}
 .gnb button[aria-current="true"]::after{opacity:1}
@@ -53,15 +53,72 @@ ul{margin:0;padding:0;list-style:none}
 .tabs button[aria-current="true"]{color:var(--ku-green);font-weight:700;border-bottom-color:var(--ku-green)}
 .tabs .ext::after{content:" ↗";font-size:12px;color:var(--ink-3)}
 
-/* ── 본문 자리 (히어로 없음, 제목 한 줄로 시작) ── */
-.page{padding:36px 0 60px}
+/* ── 본문 (히어로 없음, 제목 한 줄로 시작) ── */
+.page{padding:36px 0 80px}
 .page h1{font-size:28px;letter-spacing:-.01em}
-.ph{margin-top:22px;min-height:240px;display:grid;place-items:center;text-align:center;border:1px dashed var(--line-strong);border-radius:6px;color:var(--ink-3);font-size:14px;line-height:1.7;background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,81,40,.045) 14px 28px)}
+.lead{margin-top:22px;font-size:15px;color:var(--ink-2)}
+.lead[hidden]{display:none}
+.content{margin-top:22px}
+.note{margin-top:14px;font-size:13px;color:var(--ink-3)}
+.note a{color:var(--green-bright);text-decoration:underline;text-underline-offset:3px}
+
+/* ── 하위 내용 스케치 (구조만, 값은 회색 바) ── */
+.sk{display:inline-block;height:10px;border-radius:5px;background:var(--bar);vertical-align:middle}
+.sk.w1{width:18%}.sk.w2{width:32%}.sk.w3{width:48%}.sk.w4{width:64%}.sk.w5{width:82%}.sk.w6{width:100%}
+.img{background:repeating-linear-gradient(135deg,transparent 0 12px,rgba(0,81,40,.045) 12px 24px),var(--ground);border:1px dashed var(--line-strong);border-radius:4px;display:grid;place-items:center;color:var(--ink-3);font-size:12px}
+
+.tbl{width:100%;border-collapse:collapse;font-size:14px;border-top:2px solid var(--ku-green)}
+.tbl th{font-weight:600;background:var(--ground);padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.tbl td{padding:12px;border-bottom:1px solid var(--line)}
+.tbl .c{text-align:center}
+.tbl .num{color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+.dl{border-top:2px solid var(--ku-green)}
+.dl > div{display:grid;grid-template-columns:220px 1fr;border-bottom:1px solid var(--line)}
+.dl dt{padding:13px 16px;background:var(--ground);font-weight:600;font-size:14px}
+.dl dd{padding:13px 16px;display:flex;align-items:center}
+
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 20px}
+.card .img{aspect-ratio:3/4}
+.card .nm{margin-top:12px;display:block;height:14px;width:46%;border-radius:7px;background:var(--bar)}
+.card .fd{font-size:13px;color:var(--green-bright);margin-top:8px;font-weight:500}
+.card .ct{margin-top:8px;display:grid;gap:7px}
+
+.faq > div{display:flex;align-items:center;gap:14px;padding:15px 6px;border-bottom:1px solid var(--line)}
+.faq > div:first-child{border-top:2px solid var(--ku-green)}
+.faq .q{font-family:var(--display);font-weight:700;color:var(--ku-green);font-size:15px}
+.faq .pl{margin-left:auto;color:var(--ink-3);font-size:18px;line-height:1}
+
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.gallery .img{aspect-ratio:4/3}
+.gallery .cap{margin-top:10px;display:grid;gap:7px}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.split .img{aspect-ratio:4/3}
+.para{display:grid;gap:11px;padding-top:4px}
+
+.extcard{border:1px solid var(--line);padding:26px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.extcard b{font-family:var(--display);font-size:16px}
+.extcard span{display:block;font-size:14px;color:var(--ink-2);margin-top:4px}
+.btn{display:inline-block;background:var(--ku-green);color:#fff;padding:10px 18px;border-radius:3px;font-size:14px;font-weight:600;white-space:nowrap}
+
+.sitemap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 20px}
+.sitemap h3{font-size:15px;color:var(--ku-green);padding-bottom:8px;border-bottom:2px solid var(--ku-green);margin-bottom:8px}
+.sitemap li{font-size:14px;padding:3px 0;color:var(--ink-2)}
+.sitemap li.muted{color:var(--ink-3);font-size:13px}
+
+.login{max-width:360px;display:grid;gap:10px}
+.login input{font:inherit;font-size:14px;padding:11px 12px;border:1px solid var(--line-strong);border-radius:3px;background:var(--surface)}
+.login .btn{text-align:center;margin-top:4px}
 
 @media (max-width:900px){
   .bar{flex-wrap:wrap}
   .gnb{flex-wrap:wrap;padding-bottom:8px}
   .gnb button{padding:10px 12px}
+  .cards,.sitemap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .split{grid-template-columns:1fr}
+  .dl > div{grid-template-columns:140px 1fr}
 }
 </style>
 </head>
@@ -80,24 +137,74 @@ ul{margin:0;padding:0;list-style:none}
   <div class="wrap">
     <h1 id="title"></h1>
     <nav class="tabs" id="tabs" aria-label="하위 메뉴"></nav>
-    <div class="ph" id="ph"></div>
+    <p class="lead" id="lead" hidden></p>
+    <div class="content" id="content"></div>
   </div>
 </main>
 
 <script>
+const FIELDS = ['인사조직','재무관리','마케팅','운영관리·경영과학','전략·국제경영','회계','경영정보'];
+
 const MENU = [
-  { name:'학과소개', tabs:[], note:'통합 단일 페이지 — 하위 탭 없음' },
+  { name:'학과소개', tabs:[],
+    view:{kind:'split', note:'학과소개·교육목표·인사말·찾아오시는길을 한 페이지로 통합 → <a href="https://woonki-konkuk.github.io/biz-intro/" target="_blank" rel="noopener">통합 페이지 시안 보기</a>'} },
   { name:'교육과정', tabs:[
-      { name:'교육과정' }, { name:'졸업요건' }, { name:'이수학점 및 필수과목' },
-      { name:'경영학과 장학' }, { name:'학교 장학', ext:'건국대학교 장학 안내' }, { name:'학사일정', ext:'Outlook 학사일정' } ] },
-  { name:'교수소개', tabs:['전체','인사조직','재무관리','마케팅','운영관리·경영과학','전략·국제경영','회계','경영정보','산학·겸임·초빙','명예교수'].map(n => ({name:n})) },
-  { name:'커뮤니티', tabs:['공지사항','FAQ','자료실','포토갤러리'].map(n => ({name:n})) },
-  { name:'학생활동', tabs:['학생회 소개','학술동아리'].map(n => ({name:n})) },
-  { name:'취업지원', tabs:[], note:'취업&공모 게시판 단일 페이지' },
-  { name:'이용안내', tabs:['사이트맵','로그인'].map(n => ({name:n})) }
+      { name:'교육과정', lead:'학년·학기별 교과목 편성표', view:{kind:'table', cols:['학년','학기','교과목명','이수구분','학점'], rows:6} },
+      { name:'졸업요건', lead:'졸업을 위해 충족해야 하는 기준', view:{kind:'dl', rows:['총 이수학점','전공 이수학점','교양 이수학점','졸업 인증 (어학·논문 등)','기타']} },
+      { name:'이수학점 및 필수과목', view:{kind:'table', cols:['이수구분','교과목명','학점','비고'], rows:5} },
+      { name:'경영학과 장학', lead:'학과 자체 장학 안내', view:{kind:'table', cols:['장학금명','지급 대상','금액','신청 시기'], rows:4} },
+      { name:'학교 장학', ext:'건국대학교 장학 안내' },
+      { name:'학사일정', ext:'Outlook 학사일정' } ] },
+  { name:'교수소개', tabs:[
+      { name:'전체', view:{kind:'cards', n:8, fields:FIELDS} },
+      ...FIELDS.map(f => ({ name:f, view:{kind:'cards', n:3, fields:[f]} })),
+      { name:'산학·겸임·초빙', view:{kind:'cards', n:4, fields:['산학협력전임','겸임교수','초빙교수','겸임교수']} },
+      { name:'명예교수', view:{kind:'cards', n:3, fields:['명예교수']} } ] },
+  { name:'커뮤니티', tabs:[
+      { name:'공지사항', view:{kind:'board', rows:6} },
+      { name:'FAQ', view:{kind:'faq', rows:5} },
+      { name:'자료실', view:{kind:'board', rows:6, file:true} },
+      { name:'포토갤러리', view:{kind:'gallery', n:6} } ] },
+  { name:'학생활동', tabs:[
+      { name:'학생회 소개', view:{kind:'split'} },
+      { name:'학술동아리', view:{kind:'gallery', n:3} } ] },
+  { name:'취업지원', tabs:[], view:{kind:'board', rows:6} },
+  { name:'이용안내', tabs:[
+      { name:'사이트맵', view:{kind:'sitemap'} },
+      { name:'로그인', view:{kind:'login'} } ] }
 ];
 
-const state = { m:2, t:0 };   // 처음 열면 교수소개 › 첫 탭
+const state = { m:1, t:0 };   // 처음 열면 교육과정 › 첫 탭
+
+/* ── 스케치 렌더러 ── */
+const sk = w => `<span class="sk w${w}"></span>`;
+const cyc = (arr, i) => arr[i % arr.length];
+
+const VIEW = {
+  table: v => `<table class="tbl"><thead><tr>${v.cols.map((c,i) => `<th${i===0?' class="c"':''}>${c}</th>`).join('')}</tr></thead><tbody>${
+    Array.from({length:v.rows}, (_,r) => `<tr>${v.cols.map((c,i) => i===0
+      ? `<td class="c">${sk(6)}</td>`
+      : `<td>${sk(cyc([3,4,2,1,3],(r+i)))}</td>`).join('')}</tr>`).join('')}</tbody></table>`,
+
+  dl: v => `<dl class="dl">${v.rows.map((r,i) => `<div><dt>${r}</dt><dd>${sk(cyc([2,3,2,4,1],i))}</dd></div>`).join('')}</dl>`,
+
+  cards: v => `<div class="cards">${Array.from({length:v.n}, (_,i) => `<div class="card"><div class="img">사진</div><span class="nm"></span><p class="fd">${cyc(v.fields,i)}</p><div class="ct">${sk(4)}${sk(3)}</div></div>`).join('')}</div>`,
+
+  board: v => `<table class="tbl"><thead><tr><th class="c">번호</th><th>제목</th><th>작성자</th><th>작성일</th><th class="c">조회</th>${v.file?'<th class="c">첨부</th>':''}</tr></thead><tbody>${
+    Array.from({length:v.rows}, (_,i) => `<tr><td class="c num">${v.rows-i}</td><td>${sk(cyc([4,5,3,4,2,5],i))}</td><td>${sk(6)}</td><td>${sk(6)}</td><td class="c">${sk(6)}</td>${v.file?'<td class="c">📎</td>':''}</tr>`).join('')}</tbody></table>`,
+
+  faq: v => `<div class="faq">${Array.from({length:v.rows}, (_,i) => `<div><span class="q">Q</span>${sk(cyc([4,3,5,3,4],i))}<span class="pl">+</span></div>`).join('')}</div>`,
+
+  gallery: v => `<div class="gallery">${Array.from({length:v.n}, () => `<div><div class="img">이미지</div><div class="cap">${sk(4)}${sk(2)}</div></div>`).join('')}</div>`,
+
+  split: v => `<div class="split"><div class="para">${[5,6,4,6,5,3].map(sk).join('')}</div><div class="img">이미지</div></div>${v.note ? `<p class="note">${v.note}</p>` : ''}`,
+
+  ext: v => `<div class="extcard"><div><b>${v.name}</b><span>외부 페이지(${v.ext})로 연결됩니다. 새 창으로 열림.</span></div><a class="btn" href="#">${v.name} 바로가기 ↗</a></div>`,
+
+  sitemap: () => `<div class="sitemap">${MENU.map(m => `<div><h3>${m.name}</h3><ul>${m.tabs.length ? m.tabs.map(t => `<li>${t.name}${t.ext?' ↗':''}</li>`).join('') : '<li class="muted">단일 페이지</li>'}</ul></div>`).join('')}</div>`,
+
+  login: () => `<form class="login" onsubmit="return false"><input type="text" placeholder="아이디" disabled><input type="password" placeholder="비밀번호" disabled><span class="btn">로그인</span></form>`
+};
 
 function btn(label, cls, on, current){
   const b = document.createElement('button');
@@ -120,9 +227,12 @@ function render(){
   menu.tabs.forEach((t,i) => tabs.append(btn(t.name, t.ext ? 'ext' : '', () => { state.t=i; render(); }, i===state.t)));
 
   document.getElementById('title').textContent = menu.name;
-  document.getElementById('ph').textContent = tab && tab.ext
-    ? '외부 링크 (' + tab.ext + ') — 새 창으로 열림'
-    : '본문 영역 — 내용은 생략' + (tab ? ' · ' + tab.name : '') + (menu.note ? ' · ' + menu.note : '');
+
+  const lead = document.getElementById('lead');
+  lead.hidden = !(tab && tab.lead); lead.textContent = (tab && tab.lead) || '';
+
+  const view = tab ? (tab.ext ? {kind:'ext', name:tab.name, ext:tab.ext} : tab.view) : menu.view;
+  document.getElementById('content').innerHTML = VIEW[view.kind](view);
 }
 
 render();
