@@ -18,6 +18,7 @@
   --display:'S-Core Dream','Pretendard',-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --body:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
   --wrap:1140px; --gutter:24px;
+  --hero-h:clamp(170px,19vw,240px); --mv-h:clamp(300px,40vw,500px);
 }
 *,*::before,*::after{box-sizing:border-box}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -54,7 +55,7 @@ ul{margin:0;padding:0;list-style:none}
 .tabs .ext::after{content:" ↗";font-size:12px;color:var(--ink-3)}
 
 /* ── 사진 히어로: 현재 사이트 서브비주얼 방식 (사진 + 흰 제목 + 문구), 아이콘·브레드크럼 줄은 제거 ── */
-.hero{display:block;position:relative;height:clamp(170px,19vw,240px);overflow:hidden;background:var(--green-deep)}
+.hero{display:block;position:relative;height:var(--hero-h);overflow:hidden;background:var(--green-deep)}
 .hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,22,11,.66) 0%,rgba(0,22,11,.42) 45%,rgba(0,22,11,.28) 100%)}
 .hero .wrap{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;display:flex;align-items:center;gap:30px;color:#fff}
@@ -63,7 +64,7 @@ ul{margin:0;padding:0;list-style:none}
 .hero .tag b{display:block;font-family:var(--display);font-weight:500;font-size:14px;letter-spacing:.01em}
 
 /* ── 홈: 메인 비주얼 (현재 홈의 슬라이드 자리, 사진은 임시로 hero.jpg) ── */
-.mv{display:none;position:relative;height:clamp(300px,40vw,500px);overflow:hidden;background:var(--green-deep)}
+.mv{display:none;position:relative;height:var(--mv-h);overflow:hidden;background:var(--green-deep)}
 .mv img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
 .mv::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,35,18,.62) 0%,rgba(0,35,18,.25) 55%,rgba(0,35,18,.1) 100%)}
 .mv .wrap{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;color:#fff}
@@ -77,6 +78,7 @@ ul{margin:0;padding:0;list-style:none}
 body.is-home .hero,body.is-home .sub-bar{display:none}
 body.is-home .mv{display:block}
 body.is-home .content{margin-top:40px;min-height:0}
+body.is-home .emblem-wm{top:calc(var(--mv-h) - 120px)}
 /* 홈 섹션 */
 .home{display:grid;gap:56px}
 .h-top{display:grid;grid-template-columns:minmax(250px,300px) 1fr;gap:28px;align-items:stretch}
@@ -118,7 +120,7 @@ body.is-home .content{margin-top:40px;min-height:0}
 .page{padding:0 0 80px}
 
 /* ── 건국대 엠블럼 워터마크 (오른쪽 상단) — 링은 고정, 안쪽 황소만 걷는 박자로 움직임 ── */
-.emblem-wm{position:absolute;top:10px;right:-64px;z-index:3;width:min(380px,38vw);opacity:.13;pointer-events:none;user-select:none;-webkit-user-select:none;will-change:transform;transform-origin:50% 45%}
+.emblem-wm{position:absolute;top:calc(var(--hero-h) - 120px);right:-64px;z-index:3;width:min(380px,38vw);opacity:.13;pointer-events:none;user-select:none;-webkit-user-select:none;will-change:transform;transform-origin:50% 45%}
 .emblem-wm img{width:100%;display:block}
 .emblem-ring{
   -webkit-mask-image:radial-gradient(circle closest-side at 50% 50%,transparent 69%,#000 70%),radial-gradient(ellipse 9.5% 5.5% at 53% 87.7%,transparent 96%,#000 100%);
