@@ -49,10 +49,11 @@ ul{margin:0;padding:0;list-style:none}
 .tabs{display:flex;gap:2px;margin-top:30px;border-bottom:1px solid var(--line-strong);overflow-x:auto;scrollbar-width:none}
 .tabs[hidden]{display:none}
 .tabs::-webkit-scrollbar{display:none}
-.tabs button{padding:12px 18px 10px;font-family:var(--display);font-weight:500;font-size:15px;color:var(--ink-2);white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs button{padding:12px 14px 10px;font-family:var(--display);font-weight:500;font-size:15px;color:var(--ink-2);white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px}
 .tabs button:hover{color:var(--ku-green)}
 .tabs button[aria-current="true"]{color:var(--ku-green);font-weight:700;border-bottom-color:var(--ku-green)}
 .tabs .ext::after{content:" ↗";font-size:12px;color:var(--ink-3)}
+.tabs .sep{width:1px;background:var(--line-strong);margin:14px 10px 12px;align-self:stretch}
 
 /* ── 사진 히어로: 현재 사이트 서브비주얼 방식 (사진 + 흰 제목 + 문구), 아이콘·브레드크럼 줄은 제거 ── */
 .hero{display:block;position:relative;height:var(--hero-h);overflow:hidden;background:var(--green-deep)}
@@ -514,7 +515,7 @@ const MENU = [
       { name:'경영학과 장학', lead:'학과 자체 장학 안내', view:{kind:'table', cols:['장학금명','지급 대상','금액','신청 시기'], rows:4} },
       { name:'건국대 장학', ext:'건국대학교 장학 안내' },
       { name:'학사일정', ext:'Outlook 학사일정' } ] },
-  { name:'교수소개', desc:'분야별 교수진 소개', tabs:['전체', ...FIELDS, '산학·겸임·초빙', '명예교수'].map(n => ({ name:n, view:{kind:'blank'} })) },   // 하위 내용 스케치 없음
+  { name:'교수소개', desc:'분야별 교수진 소개', tabs:['전체', ...FIELDS, '산학·겸임·초빙', '명예교수'].map(n => ({ name:n, view:{kind:'blank'}, sep: n === '산학·겸임·초빙' })) },   // 분야 탭 | 구분선 | 산학·겸임·초빙, 명예교수
   { name:'커뮤니티', desc:'공지사항 · FAQ · 자료실 · 포토갤러리', tabs:[
       { name:'공지사항', subs:['전체','학사','졸업','장학','기타'], view:{kind:'board', rows:6} },   // 게시판 분류 → 세부 탭
       { name:'FAQ', view:{kind:'faq', rows:5} },
@@ -635,7 +636,10 @@ function render(){
 
   const tabs = document.getElementById('tabs');
   tabs.hidden = menu.tabs.length === 0; tabs.replaceChildren();
-  menu.tabs.forEach((t,i) => tabs.append(btn(t.name, t.ext ? 'ext' : '', () => { state.t=i; state.sub=0; render(); }, i===state.t)));
+  menu.tabs.forEach((t,i) => {
+    if (t.sep) { const d = document.createElement('i'); d.className = 'sep'; tabs.append(d); }
+    tabs.append(btn(t.name, t.ext ? 'ext' : '', () => { state.t=i; state.sub=0; render(); }, i===state.t));
+  });
 
   document.getElementById('heroTitle').textContent = menu.name;
   document.getElementById('heroDesc').textContent = menu.desc || '';
