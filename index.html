@@ -54,7 +54,28 @@ ul{margin:0;padding:0;list-style:none}
 .tabs .ext::after{content:" ↗";font-size:12px;color:var(--ink-3)}
 
 /* ── 본문 (히어로 없음, 제목 한 줄로 시작) ── */
-.page{padding:36px 0 80px}
+.page{position:relative;overflow:hidden;padding:36px 0 80px}
+.page > .wrap{position:relative;z-index:1}
+
+/* ── 건국대 엠블럼 워터마크 (오른쪽 상단) — 링은 고정, 안쪽 황소만 걷는 박자로 움직임 ── */
+.emblem-wm{position:absolute;top:-24px;right:-64px;z-index:0;width:min(380px,38vw);opacity:.09;pointer-events:none;user-select:none;-webkit-user-select:none;will-change:transform;transform-origin:50% 45%}
+.emblem-wm img{width:100%;display:block}
+.emblem-ring{
+  -webkit-mask-image:radial-gradient(circle closest-side at 50% 50%,transparent 69%,#000 70%),radial-gradient(ellipse 9.5% 5.5% at 53% 87.7%,transparent 96%,#000 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:radial-gradient(circle closest-side at 50% 50%,transparent 69%,#000 70%),radial-gradient(ellipse 9.5% 5.5% at 53% 87.7%,transparent 96%,#000 100%);
+  mask-composite:intersect}
+.emblem-bull{position:absolute;inset:0;
+  -webkit-mask-image:radial-gradient(circle closest-side at 50% 50%,#000 69%,transparent 70%),radial-gradient(ellipse 9.5% 5.5% at 53% 87.7%,#000 96%,transparent 100%);
+  mask-image:radial-gradient(circle closest-side at 50% 50%,#000 69%,transparent 70%),radial-gradient(ellipse 9.5% 5.5% at 53% 87.7%,#000 96%,transparent 100%);
+  transform-origin:50% 80%;animation:bullWalk 2.6s ease-in-out infinite}
+@keyframes bullWalk{
+  0%{transform:translateY(0) rotate(0deg)}
+  25%{transform:translateY(-3px) rotate(.8deg)}
+  50%{transform:translateY(.6px) rotate(0deg)}
+  75%{transform:translateY(-3px) rotate(-.8deg)}
+  100%{transform:translateY(0) rotate(0deg)}}
+@media (prefers-reduced-motion:reduce){.emblem-bull{animation:none}}
 .page h1{font-size:28px;letter-spacing:-.01em}
 .lead{margin-top:22px;font-size:15px;color:var(--ink-2)}
 .lead[hidden]{display:none}
@@ -134,6 +155,10 @@ ul{margin:0;padding:0;list-style:none}
 </header>
 
 <main class="page">
+  <div class="emblem-wm" id="emblem" aria-hidden="true">
+    <img class="emblem-ring" src="konkuk-emblem.png" alt="">
+    <img class="emblem-bull" src="konkuk-emblem.png" alt="">
+  </div>
   <div class="wrap">
     <h1 id="title"></h1>
     <nav class="tabs" id="tabs" aria-label="하위 메뉴"></nav>
@@ -236,6 +261,22 @@ function render(){
 }
 
 render();
+
+/* 엠블럼: 스크롤보다 느리게 흐르고, 마우스 위치에 따라 살짝 기울어짐 */
+(() => {
+  const em = document.getElementById('emblem');
+  if (!em || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let ty = 0, rot = 0, cy = 0, crot = 0;
+  addEventListener('scroll', () => { ty = scrollY * 0.35; }, {passive:true});
+  addEventListener('pointermove', e => {
+    rot = (e.clientX / innerWidth - 0.5) * 2.4 + (e.clientY / innerHeight - 0.5) * 0.8;
+  }, {passive:true});
+  (function tick(){
+    cy += (ty - cy) * 0.08; crot += (rot - crot) * 0.06;
+    em.style.transform = `translateY(${cy.toFixed(1)}px) rotate(${crot.toFixed(2)}deg)`;
+    requestAnimationFrame(tick);
+  })();
+})();
 </script>
 </body>
 </html>
