@@ -45,7 +45,7 @@ ul{margin:0;padding:0;list-style:none}
 .gnb button[aria-current="true"]::after{opacity:1}
 
 /* ── 하위 메뉴 = 페이지 안의 탭 (제목 아래) ── */
-.tabs{display:flex;gap:2px;margin-top:10px;border-bottom:1px solid var(--line-strong);overflow-x:auto;scrollbar-width:none}
+.tabs{display:flex;gap:2px;margin-top:30px;border-bottom:1px solid var(--line-strong);overflow-x:auto;scrollbar-width:none}
 .tabs[hidden]{display:none}
 .tabs::-webkit-scrollbar{display:none}
 .tabs button{padding:12px 18px 10px;font-family:var(--display);font-weight:500;font-size:15px;color:var(--ink-2);white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px}
@@ -53,14 +53,14 @@ ul{margin:0;padding:0;list-style:none}
 .tabs button[aria-current="true"]{color:var(--ku-green);font-weight:700;border-bottom-color:var(--ku-green)}
 .tabs .ext::after{content:" ↗";font-size:12px;color:var(--ink-3)}
 
-/* ── 사진 히어로: 아래로 갈수록 흰 배경에 녹아드는 그라데이션, 페이지 제목은 사진 하단에 ── */
-.hero{display:block;position:relative;height:clamp(170px,22vw,260px);overflow:hidden;background:var(--ground)}
-.hero img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block}
-.hero::after{content:"";position:absolute;inset:0;background:
-  linear-gradient(90deg,rgba(0,81,40,.42) 0%,rgba(0,81,40,.12) 45%,rgba(0,81,40,0) 70%),
-  linear-gradient(180deg,rgba(255,255,255,.08) 0%,rgba(255,255,255,.5) 40%,rgba(255,255,255,.88) 72%,#fff 100%)}
-.hero .wrap{position:absolute;left:0;right:0;bottom:0;z-index:1}
-.hero h1{font-size:34px;letter-spacing:-.01em;padding-bottom:4px;color:var(--ku-green)}
+/* ── 사진 히어로: 현재 사이트 서브비주얼 방식 (사진 + 흰 제목 + 문구), 아이콘·브레드크럼 줄은 제거 ── */
+.hero{display:block;position:relative;height:clamp(170px,19vw,240px);overflow:hidden;background:var(--green-deep)}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,22,11,.66) 0%,rgba(0,22,11,.42) 45%,rgba(0,22,11,.28) 100%)}
+.hero .wrap{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;display:flex;align-items:center;gap:30px;color:#fff}
+.hero h1{font-size:34px;letter-spacing:-.01em;color:#fff}
+.hero .tag{font-size:13px;line-height:1.55;opacity:.9;padding-top:6px}
+.hero .tag b{display:block;font-family:var(--display);font-weight:500;font-size:14px;letter-spacing:.01em}
 
 /* ── 홈: 메인 비주얼 (현재 홈의 슬라이드 자리, 사진은 임시로 hero.jpg) ── */
 .mv{display:none;position:relative;height:clamp(300px,40vw,500px);overflow:hidden;background:var(--green-deep)}
@@ -271,6 +271,7 @@ body.is-home .content{margin-top:40px;min-height:0}
 
 @media (max-width:900px){
   .hero h1{font-size:26px}
+  .hero .tag{display:none}
   .h-top,.h-mid{grid-template-columns:1fr}
   .h-bot{grid-template-columns:1fr 1fr}
   .bar{flex-wrap:wrap}
@@ -314,7 +315,10 @@ body.is-home .content{margin-top:40px;min-height:0}
 <!-- 사진 히어로 (페이지 제목 포함) -->
 <div class="hero">
   <img src="hero.jpg" alt="">
-  <div class="wrap"><h1 id="heroTitle"></h1></div>
+  <div class="wrap">
+    <h1 id="heroTitle"></h1>
+    <p class="tag"><b>A history of leadership Konkuk University</b>건국, 세계를 이끌 녹색의 물결</p>
+  </div>
 </div>
 
 <main class="page">
