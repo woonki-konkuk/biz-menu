@@ -86,11 +86,11 @@ body[data-hero="3"] .hero .tag{display:none}
 body[data-hero="3"] .hero .wrap{display:block}
 body[data-hero="3"] .hero .desc{display:block;font-size:15px;color:rgba(255,255,255,.88);margin-top:6px}
 
-/* 히어로 옵션 스위치 — 맨 위 띠 (검토용, 공유 링크 #h1 #h2 #h3) */
-.hsw{display:flex;justify-content:center;align-items:center;gap:6px;padding:7px 12px;background:var(--ground);border-bottom:1px solid var(--line);font-size:12px}
-.hsw span{color:var(--ink-3);margin-right:6px}
-.hsw button{padding:4px 14px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink-2)}
-.hsw button[aria-current="true"]{background:var(--ku-green);border-color:var(--ku-green);color:#fff}
+/* 히어로 옵션 스위치 — 오른쪽 아래 (검토용, 공유 링크 #h1 #h2 #h3) */
+.hsw{position:fixed;right:14px;bottom:14px;z-index:9;display:flex;align-items:center;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);font-size:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.hsw span{padding:0 6px 0 13px;color:var(--ink-3)}
+.hsw button{padding:7px 12px;color:var(--ink-2)}
+.hsw button[aria-current="true"]{background:var(--ku-green);color:#fff}
 
 /* ── 홈: 메인 비주얼 (현재 홈의 슬라이드 자리, 사진은 임시로 hero.jpg) ── */
 .mv{display:none;position:relative;height:var(--mv-h);overflow:hidden;background:var(--green-deep)}
@@ -317,13 +317,6 @@ body.is-home .emblem-wm{top:calc(var(--mv-h) - 120px)}
 </head>
 <body>
 
-<div class="hsw" role="group" aria-label="히어로 옵션">
-  <span>히어로 옵션</span>
-  <button type="button" data-h="1">1번</button>
-  <button type="button" data-h="2">2번</button>
-  <button type="button" data-h="3">3번</button>
-</div>
-
 <header class="hdr">
   <div class="wrap">
     <div class="bar">
@@ -368,6 +361,13 @@ body.is-home .emblem-wm{top:calc(var(--mv-h) - 120px)}
     <div class="content" id="content"></div>
   </div>
 </main>
+</div>
+
+<div class="hsw" role="group" aria-label="히어로 옵션">
+  <span>히어로 옵션</span>
+  <button type="button" data-h="1">1번</button>
+  <button type="button" data-h="2">2번</button>
+  <button type="button" data-h="3">3번</button>
 </div>
 
 <!-- 학과소개 본문: 학과소개_통합_시안_v1.html 의 4개 섹션 (이미지·지도 자리는 실제 적용 시 교체) -->
