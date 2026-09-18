@@ -64,10 +64,9 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ── 본문 ── */
 .page{position:relative;overflow:hidden;padding:0 0 80px}
-.page > .wrap{position:relative;z-index:1}
 
 /* ── 건국대 엠블럼 워터마크 (오른쪽 상단) — 링은 고정, 안쪽 황소만 걷는 박자로 움직임 ── */
-.emblem-wm{position:absolute;top:-12px;right:-64px;z-index:0;width:min(380px,38vw);opacity:.07;pointer-events:none;user-select:none;-webkit-user-select:none;will-change:transform;transform-origin:50% 45%}
+.emblem-wm{position:absolute;top:-12px;right:-64px;z-index:3;width:min(380px,38vw);opacity:.07;pointer-events:none;user-select:none;-webkit-user-select:none;will-change:transform;transform-origin:50% 45%}
 .emblem-wm img{width:100%;display:block}
 .emblem-ring{
   -webkit-mask-image:radial-gradient(circle closest-side at 50% 50%,transparent 69%,#000 70%),radial-gradient(ellipse 9.5% 5.5% at 53% 87.7%,transparent 96%,#000 100%);
