@@ -62,6 +62,57 @@ ul{margin:0;padding:0;list-style:none}
 .hero .wrap{position:absolute;left:0;right:0;bottom:0;z-index:1}
 .hero h1{font-size:34px;letter-spacing:-.01em;padding-bottom:4px;color:var(--ku-green)}
 
+/* ── 홈: 메인 비주얼 (현재 홈의 슬라이드 자리, 사진은 임시로 hero.jpg) ── */
+.mv{display:none;position:relative;height:clamp(300px,40vw,500px);overflow:hidden;background:var(--green-deep)}
+.mv img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
+.mv::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,35,18,.62) 0%,rgba(0,35,18,.25) 55%,rgba(0,35,18,.1) 100%)}
+.mv .wrap{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;color:#fff}
+.mv .en{font-family:var(--display);font-weight:500;font-size:14px;letter-spacing:.06em;opacity:.9}
+.mv h1{font-size:clamp(28px,4vw,44px);color:#fff;margin:6px 0 10px;letter-spacing:-.01em}
+.mv p{font-size:16px;opacity:.92}
+.mv .dots{position:absolute;left:0;right:0;bottom:22px;z-index:1;color:#fff;font-size:12px;font-family:var(--display);letter-spacing:.08em}
+.mv .dots .wrap{position:static;transform:none;display:flex;gap:10px;align-items:center}
+.mv .dots i{display:inline-block;width:26px;height:1px;background:rgba(255,255,255,.5)}
+.mv .dots b{font-weight:700}
+body.is-home .hero,body.is-home .sub-bar{display:none}
+body.is-home .mv{display:block}
+body.is-home .content{margin-top:40px;min-height:0}
+/* 홈 섹션 */
+.home{display:grid;gap:56px}
+.h-top{display:grid;grid-template-columns:minmax(250px,300px) 1fr;gap:28px;align-items:stretch}
+.sched{background:var(--ku-green);color:#fff;padding:24px 26px 22px}
+.sched h2{font-size:17px;color:#fff}
+.sched .ym{font-family:var(--display);font-weight:700;font-size:22px;margin:4px 0 12px}
+.sched li{padding:10px 0;border-top:1px solid rgba(255,255,255,.22);font-size:12px;opacity:.95}
+.sched li b{display:block;font-size:14px;font-weight:600;margin-top:2px}
+.sched .more{margin-top:12px;font-size:12px;opacity:.8}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.quick button{background:var(--surface);padding:24px 16px 20px;display:grid;gap:6px;justify-items:center;text-align:center}
+.quick button:hover b{color:var(--ku-green)}
+.quick .ico{width:42px;height:42px;border:1px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;color:var(--ku-green);font-size:10px;font-family:var(--display);font-weight:700}
+.quick b{font-family:var(--display);font-weight:700;font-size:15px}
+.quick small{font-size:12px;color:var(--ink-3)}
+.h-mid{display:grid;grid-template-columns:1fr minmax(250px,300px);gap:28px}
+.notice-head{display:flex;align-items:baseline;gap:16px;border-bottom:2px solid var(--ku-green);padding-bottom:10px}
+.notice-head h2{font-size:20px}
+.notice-head .t{font-size:14px;color:var(--ink-3)}
+.notice-head .t.on{color:var(--ku-green);font-weight:700}
+.notice-head .more{margin-left:auto;font-size:11px;letter-spacing:.08em;color:var(--ink-3)}
+.notice li{display:grid;grid-template-columns:1fr 60px;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);align-items:center}
+.notice li b{display:block;font-weight:600;font-size:15px;line-height:1.4;margin-bottom:3px}
+.notice li p{font-size:13px;color:var(--ink-3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.notice .date{text-align:right;font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.notice .date b{display:block;font-family:var(--display);font-size:20px;color:var(--ink);margin:0}
+.popup h2{font-size:12px;color:var(--ink-3);letter-spacing:.1em;margin-bottom:10px}
+.popup .img{aspect-ratio:3/2}
+.popup p{font-size:13px;color:var(--ink-2);margin-top:8px}
+.h-bot{display:grid;grid-template-columns:repeat(3,1fr) 1.4fr;gap:18px}
+.bnr{border:1px solid var(--line);padding:22px 20px;display:grid;gap:4px;align-content:start;min-height:150px;text-align:left}
+.bnr b{font-family:var(--display);font-weight:700;font-size:17px}
+.bnr small{font-size:13px;color:var(--ink-2)}
+.bnr .vm{margin-top:auto;padding-top:14px;font-size:11px;letter-spacing:.08em;color:var(--green-bright);font-weight:700}
+.gal .img{height:100%;min-height:150px}
+
 /* ── 히어로 + 본문 무대 (엠블럼이 사진 위에서 본문까지 걸침) ── */
 .stage{position:relative;overflow:hidden}
 .page{padding:0 0 80px}
@@ -220,6 +271,8 @@ ul{margin:0;padding:0;list-style:none}
 
 @media (max-width:900px){
   .hero h1{font-size:26px}
+  .h-top,.h-mid{grid-template-columns:1fr}
+  .h-bot{grid-template-columns:1fr 1fr}
   .bar{flex-wrap:wrap}
   .gnb{flex-wrap:wrap;padding-bottom:8px}
   .gnb button{padding:10px 12px}
@@ -235,7 +288,7 @@ ul{margin:0;padding:0;list-style:none}
 <header class="hdr">
   <div class="wrap">
     <div class="bar">
-      <a class="logo" href="#"><span class="ku">KU</span><span class="name"><small>KONKUK UNIVERSITY</small>경영학과</span></a>
+      <a class="logo" href="#" id="logo"><span class="ku">KU</span><span class="name"><small>KONKUK UNIVERSITY</small>경영학과</span></a>
       <nav class="gnb" id="gnb" aria-label="주 메뉴"></nav>
     </div>
   </div>
@@ -245,6 +298,17 @@ ul{margin:0;padding:0;list-style:none}
 <div class="emblem-wm" id="emblem" aria-hidden="true">
   <img class="emblem-ring" src="konkuk-emblem.png" alt="">
   <img class="emblem-bull" src="konkuk-emblem.png" alt="">
+</div>
+
+<!-- 홈에서만 표시: 메인 비주얼 (현재 홈의 슬라이드 1 문구) -->
+<div class="mv">
+  <img src="hero.jpg" alt="">
+  <div class="wrap">
+    <p class="en">Department of Business Administration</p>
+    <h1>건국대학교 경영학과</h1>
+    <p>세계 초일류 대학을 위한 힘찬 도전</p>
+  </div>
+  <div class="dots"><div class="wrap"><b>01</b><i></i>02</div></div>
 </div>
 
 <!-- 사진 히어로 (페이지 제목 포함) -->
@@ -388,6 +452,7 @@ ul{margin:0;padding:0;list-style:none}
 const FIELDS = ['인사조직','재무관리','마케팅','운영관리·경영과학','전략·국제경영','회계','경영정보'];
 
 const MENU = [
+  { name:'홈', home:true, tabs:[], view:{kind:'home'} },
   { name:'학과소개', tabs:[], view:{kind:'intro'} },   // 하위 4개 메뉴를 한 페이지로 통합
   { name:'교육과정', tabs:[
       { name:'교육과정', view:{kind:'curriculum'} },
@@ -409,7 +474,7 @@ const MENU = [
       { name:'로그인', view:{kind:'login'} } ] }
 ];
 
-const state = { m:1, t:0, sub:0 };   // 처음 열면 교육과정 › 첫 탭
+const state = { m:0, t:0, sub:0 };   // 처음 열면 홈
 
 /* 교육과정 탭 — 현재 사이트(biz/10509) 구조 그대로: 년도 선택 → 세부 탭 → 표 */
 const CURR_YEARS = Array.from({length:22}, (_,i) => (2027 - i) + '년');
@@ -435,8 +500,34 @@ const CURR_BAR = () => `<select aria-label="교육과정 년도">${CURR_YEARS.ma
 const sk = w => `<span class="sk w${w}"></span>`;
 const cyc = (arr, i) => arr[i % arr.length];
 
+const HOME = {
+  sched: { ym:'2026 . 09', items:[['2026.09.24 ~ 2026.09.26','한가위(공휴일)'],['2026.10.03 ~ 2026.10.03','개천절'],['2026.10.05 ~ 2026.10.05','개천절 대체 공휴일']] },
+  quick: [['학과소개','경영학과 소개입니다.','학과소개'],['교육과정','경영학과의 교육과정 안내입니다.','교육과정'],['졸업요건','경영대학 졸업요건 안내입니다.','교육과정|졸업요건'],['장학제도','건국대학교 장학제도 안내입니다.','교육과정|경영학과 장학'],['경영대학','경영대학 홈페이지 바로가기',''],['일우헌','일우헌 홈페이지 바로가기','']],
+  notice: [['2026학년도 2학기 학부 중간 강의평가 시행 안내','목적: 학기 중간 강의 만족도 점검 및 개선 요구 사항 반영을 통한 수업의 질 제고 · 기간: 2026. 9. 28.(월) ~ 10. 9.(금)','09','17'],
+           ['[기타] 2026년 대학도서관 이용자 만족도 조사','교육부에서 실시하는 대학도서관 평가 추진계획의 일환으로 2026년 대학도서관 이용자 만족도 조사를 실시하고 있습니다.','09','17'],
+           ['2026학년 교양교육 인공지능(AI) 교과목 개편에 관한 의견조사 참여 안내','교양교육센터에서는 교양교육 인공지능(AI) 교과목 개편에 관한 의견을 파악하고자 설문을 진행합니다.','09','16'],
+           ['2026년 2학기 경영대학 외국인 유학생 오리엔테이션 안내 (9/15)','경영대학 외국인 유학생 오리엔테이션이 아래와 같이 진행 예정이오니, 많은 참여와 관심 바랍니다.','09','14']],
+  bnr: [['입학안내','경영대학 입학안내'],['교수진 소개','경영학과 교수 소개','교수소개'],['취업&공모','경영대학 제공 취업&공모 소식','취업지원']]
+};
+
 const VIEW = {
   blank: () => `<div class="ph">본문 영역 — 내용은 생략</div>`,
+
+  home: () => `<div class="home">
+    <div class="h-top">
+      <div class="sched"><h2>Schedule</h2><p class="ym">${HOME.sched.ym}</p><ul>${HOME.sched.items.map(([d,t]) => `<li>${d}<b>${t}</b></li>`).join('')}</ul><p class="more">더보기 +</p></div>
+      <div class="quick">${HOME.quick.map(([t,d,go]) => `<button type="button" data-go="${go}"><span class="ico">${t.slice(0,2)}</span><b>${t}</b><small>${d}</small></button>`).join('')}</div>
+    </div>
+    <div class="h-mid">
+      <div class="notice"><div class="notice-head"><h2>Notice</h2><span class="t on">공지사항</span><span class="t">자료실</span><span class="more">더보기 READ MORE</span></div>
+        <ul>${HOME.notice.map(([t,d,m,day]) => `<li><div><b>${t}</b><p>${d}</p></div><div class="date">2026.${m}<b>${day}</b></div></li>`).join('')}</ul></div>
+      <div class="popup"><h2>POPUP ZONE</h2><div class="img">이미지 · '경영학과' NEW Open</div><p>경영학과 홈페이지가 새롭게 오픈하였습니다.</p></div>
+    </div>
+    <div class="h-bot">
+      ${HOME.bnr.map(([t,d,go]) => `<button type="button" class="bnr" data-go="${go||''}"><b>${t}</b><small>${d}</small><span class="vm">VIEW MORE</span></button>`).join('')}
+      <div class="gal"><div class="img">포토갤러리 이미지</div></div>
+    </div>
+  </div>`,
 
   intro: () => `<div class="intro">${document.getElementById('intro-tpl').innerHTML}</div>`,
 
@@ -492,12 +583,19 @@ function render(){
   menu.tabs.forEach((t,i) => tabs.append(btn(t.name, t.ext ? 'ext' : '', () => { state.t=i; state.sub=0; render(); }, i===state.t)));
 
   document.getElementById('heroTitle').textContent = menu.name;
+  document.body.classList.toggle('is-home', !!menu.home);
 
   const view = tab ? (tab.ext ? {kind:'ext', name:tab.name, ext:tab.ext} : tab.view) : menu.view;
   document.getElementById('subbar').innerHTML = view.kind === 'curriculum' ? CURR_BAR() : (tab && tab.lead ? `<p class="lead">${tab.lead}</p>` : '');
   document.getElementById('content').innerHTML = VIEW[view.kind](view);
   document.querySelectorAll('#seg button').forEach((b,i) => b.addEventListener('click', () => { state.sub=i; render(); }));
+  document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => {
+    const [mn, tn] = b.dataset.go.split('|'); if (!mn) return;
+    const mi = MENU.findIndex(m => m.name === mn); if (mi < 0) return;
+    state.m = mi; state.t = Math.max(0, MENU[mi].tabs.findIndex(t => t.name === tn)); state.sub = 0; render(); scrollTo(0, 0);
+  }));
 }
+document.getElementById('logo').addEventListener('click', e => { e.preventDefault(); state.m = 0; state.t = 0; state.sub = 0; render(); scrollTo(0, 0); });
 
 render();
 
