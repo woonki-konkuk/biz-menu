@@ -62,11 +62,12 @@ ul{margin:0;padding:0;list-style:none}
 .hero .wrap{position:absolute;left:0;right:0;bottom:0;z-index:1}
 .hero h1{font-size:34px;letter-spacing:-.01em;padding-bottom:4px;color:var(--ku-green)}
 
-/* ── 본문 ── */
-.page{position:relative;overflow:hidden;padding:0 0 80px}
+/* ── 히어로 + 본문 무대 (엠블럼이 사진 위에서 본문까지 걸침) ── */
+.stage{position:relative;overflow:hidden}
+.page{padding:0 0 80px}
 
 /* ── 건국대 엠블럼 워터마크 (오른쪽 상단) — 링은 고정, 안쪽 황소만 걷는 박자로 움직임 ── */
-.emblem-wm{position:absolute;top:-12px;right:-64px;z-index:3;width:min(380px,38vw);opacity:.07;pointer-events:none;user-select:none;-webkit-user-select:none;will-change:transform;transform-origin:50% 45%}
+.emblem-wm{position:absolute;top:10px;right:-64px;z-index:3;width:min(380px,38vw);opacity:.13;pointer-events:none;user-select:none;-webkit-user-select:none;will-change:transform;transform-origin:50% 45%}
 .emblem-wm img{width:100%;display:block}
 .emblem-ring{
   -webkit-mask-image:radial-gradient(circle closest-side at 50% 50%,transparent 69%,#000 70%),radial-gradient(ellipse 9.5% 5.5% at 53% 87.7%,transparent 96%,#000 100%);
@@ -240,6 +241,12 @@ ul{margin:0;padding:0;list-style:none}
   </div>
 </header>
 
+<div class="stage">
+<div class="emblem-wm" id="emblem" aria-hidden="true">
+  <img class="emblem-ring" src="konkuk-emblem.png" alt="">
+  <img class="emblem-bull" src="konkuk-emblem.png" alt="">
+</div>
+
 <!-- 사진 히어로 (페이지 제목 포함) -->
 <div class="hero">
   <img src="hero.jpg" alt="">
@@ -247,16 +254,13 @@ ul{margin:0;padding:0;list-style:none}
 </div>
 
 <main class="page">
-  <div class="emblem-wm" id="emblem" aria-hidden="true">
-    <img class="emblem-ring" src="konkuk-emblem.png" alt="">
-    <img class="emblem-bull" src="konkuk-emblem.png" alt="">
-  </div>
   <div class="wrap">
     <nav class="tabs" id="tabs" aria-label="하위 메뉴"></nav>
     <div class="sub-bar" id="subbar"></div>
     <div class="content" id="content"></div>
   </div>
 </main>
+</div>
 
 <!-- 학과소개 본문: 학과소개_통합_시안_v1.html 의 4개 섹션 (이미지·지도 자리는 실제 적용 시 교체) -->
 <template id="intro-tpl">
