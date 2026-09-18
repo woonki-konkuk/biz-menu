@@ -55,13 +55,6 @@ ul{margin:0;padding:0;list-style:none}
 .tabs button[aria-current="true"]{color:var(--ku-green);font-weight:700;border-bottom-color:var(--ku-green)}
 .tabs .ext::after{content:" ↗";font-size:12px;color:var(--ink-3)}
 
-/* 3단계 메뉴가 있는 탭: 탭 아래 작은 필 */
-.subs{display:flex;gap:8px;flex-wrap:wrap;padding:16px 0 0}
-.subs[hidden]{display:none}
-.subs button{border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);padding:5px 14px;font-size:13px;color:var(--ink-2)}
-.subs button:hover{border-color:var(--ku-green);color:var(--ku-green)}
-.subs button[aria-current="true"]{background:var(--ku-green);border-color:var(--ku-green);color:#fff}
-
 /* ── 본문 자리 (히어로 없음, 제목 한 줄로 시작) ── */
 .page{padding:36px 0 60px}
 .page h1{font-size:28px;letter-spacing:-.01em}
@@ -75,8 +68,6 @@ ul{margin:0;padding:0;list-style:none}
 .col{background:var(--surface);border:1px solid var(--line);padding:14px 16px 16px}
 .col h3{font-size:15px;color:var(--ku-green);padding-bottom:9px;border-bottom:2px solid var(--ku-green);margin-bottom:8px}
 .col li{font-size:14px;padding:4px 0;line-height:1.5}
-.col li.sub{padding-left:12px;font-size:13px;color:var(--ink-2)}
-.col li.sub::before{content:"– "}
 .col li.muted{font-size:13px;color:var(--ink-3)}
 .changes{margin-top:30px;font-size:14px;color:var(--ink-2)}
 .changes li{padding:3px 0}
@@ -108,7 +99,6 @@ ul{margin:0;padding:0;list-style:none}
   <div class="wrap">
     <h1 id="title"></h1>
     <nav class="tabs" id="tabs" aria-label="하위 메뉴"></nav>
-    <div class="subs" id="subs" hidden></div>
     <div class="ph" id="ph"></div>
   </div>
 </main>
@@ -116,11 +106,12 @@ ul{margin:0;padding:0;list-style:none}
 <section class="ia">
   <div class="wrap">
     <h2>메뉴 구조 한눈에 보기</h2>
-    <p class="note">상단 메뉴 6개 · 하위 메뉴는 페이지 안의 탭 · 3단계는 탭 아래 작은 버튼. 위 헤더에서 직접 클릭해 보세요.</p>
+    <p class="note">상단 메뉴 6개 · 하위 메뉴는 모두 같은 단계의 탭으로 페이지 안에 표시. 위 헤더에서 직접 클릭해 보세요.</p>
     <div class="cols" id="cols"></div>
     <ul class="changes">
       <li>서브페이지 상단의 큰 히어로 배너(사진·문구·브레드크럼) 제거 → 제목 한 줄로 바로 시작</li>
       <li>상단 메뉴 마우스오버 드롭다운 제거 → 클릭하면 해당 섹션 페이지로 이동, 하위 메뉴는 페이지 안 제목 아래 탭 메뉴로 표시</li>
+      <li>3단계 메뉴(졸업요건·장학제도 아래)는 없애고 같은 단계의 탭으로 펼침</li>
       <li>학과소개는 통합 단일 페이지(탭 없음), 취업지원도 단일 게시판</li>
       <li>교수소개 탭은 분야별로 예시 구성 (현재 사이트의 일반전임·외국인전임·산학협력 구분으로 바꿔도 됨)</li>
       <li>이용안내(사이트맵·로그인)는 상단 메뉴에서 빼고 헤더 유틸 링크로 이동</li>
@@ -132,17 +123,15 @@ ul{margin:0;padding:0;list-style:none}
 const MENU = [
   { name:'학과소개', tabs:[], note:'통합 단일 페이지 — 하위 탭 없음' },
   { name:'교육과정', tabs:[
-      { name:'교육과정' },
-      { name:'졸업요건', sub:['졸업요건','이수학점 및 필수과목'] },
-      { name:'장학제도', sub:['학교 장학','경영학과 장학'] },
-      { name:'학사일정', ext:true } ] },
+      { name:'교육과정' }, { name:'졸업요건' }, { name:'이수학점 및 필수과목' },
+      { name:'학교 장학' }, { name:'경영학과 장학' }, { name:'학사일정', ext:true } ] },
   { name:'교수소개', tabs:['인사조직','재무관리','마케팅','운영관리·경영과학','전략·국제경영','회계','경영정보','명예·겸임·초빙'].map(n => ({name:n})) },
   { name:'커뮤니티', tabs:['공지사항','FAQ','자료실','포토갤러리'].map(n => ({name:n})) },
   { name:'학생활동', tabs:['학생회 소개','학술동아리'].map(n => ({name:n})) },
   { name:'취업지원', tabs:[], note:'취업&공모 게시판 단일 페이지' }
 ];
 
-const state = { m:2, t:0, s:0 };   // 처음 열면 교수소개 › 첫 탭
+const state = { m:2, t:0 };   // 처음 열면 교수소개 › 첫 탭
 
 function btn(label, cls, on, current){
   const b = document.createElement('button');
@@ -158,21 +147,16 @@ function render(){
   const tab  = menu.tabs[state.t];
 
   const gnb = document.getElementById('gnb'); gnb.replaceChildren();
-  MENU.forEach((m,i) => gnb.append(btn(m.name, '', () => { state.m=i; state.t=0; state.s=0; render(); }, i===state.m)));
+  MENU.forEach((m,i) => gnb.append(btn(m.name, '', () => { state.m=i; state.t=0; render(); }, i===state.m)));
 
   const tabs = document.getElementById('tabs');
   tabs.hidden = menu.tabs.length === 0; tabs.replaceChildren();
-  menu.tabs.forEach((t,i) => tabs.append(btn(t.name, t.ext ? 'ext' : '', () => { state.t=i; state.s=0; render(); }, i===state.t)));
+  menu.tabs.forEach((t,i) => tabs.append(btn(t.name, t.ext ? 'ext' : '', () => { state.t=i; render(); }, i===state.t)));
 
-  const subs = document.getElementById('subs'); subs.replaceChildren();
-  subs.hidden = !(tab && tab.sub);
-  if (tab && tab.sub) tab.sub.forEach((s,i) => subs.append(btn(s, '', () => { state.s=i; render(); }, i===state.s)));
-
-  const leaf = tab ? (tab.sub ? tab.name + ' › ' + tab.sub[state.s] : tab.name) : '';
   document.getElementById('title').textContent = menu.name;
   document.getElementById('ph').textContent = tab && tab.ext
     ? '외부 링크 (Outlook 학사일정) — 새 창으로 열림'
-    : '본문 영역 — 내용은 생략' + (leaf ? ' · ' + leaf : '') + (menu.note ? ' · ' + menu.note : '');
+    : '본문 영역 — 내용은 생략' + (tab ? ' · ' + tab.name : '') + (menu.note ? ' · ' + menu.note : '');
 }
 
 function overview(){
@@ -182,10 +166,7 @@ function overview(){
     const h = document.createElement('h3'); h.textContent = m.name; col.append(h);
     const ul = document.createElement('ul');
     if (!m.tabs.length) { const li = document.createElement('li'); li.className='muted'; li.textContent = m.note; ul.append(li); }
-    m.tabs.forEach(t => {
-      const li = document.createElement('li'); li.textContent = t.name + (t.ext ? ' ↗' : ''); ul.append(li);
-      (t.sub||[]).forEach(s => { const sl = document.createElement('li'); sl.className='sub'; sl.textContent = s; ul.append(sl); });
-    });
+    m.tabs.forEach(t => { const li = document.createElement('li'); li.textContent = t.name + (t.ext ? ' ↗' : ''); ul.append(li); });
     col.append(ul); cols.append(col);
   });
 }
