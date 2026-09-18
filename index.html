@@ -65,24 +65,16 @@ ul{margin:0;padding:0;list-style:none}
 .hero .desc{display:none}
 .hero .dt{display:none}
 
-/* 히어로 1안: 타이포 밴드 — 사진 없이 연녹색 밴드 + 제목 */
-body[data-hero="1"]{--hero-h:150px}
-body[data-hero="1"] .hero{background:#E6EFE9}
-body[data-hero="1"] .hero img,body[data-hero="1"] .hero::after,body[data-hero="1"] .hero .tag{display:none}
-body[data-hero="1"] .hero .wrap{color:var(--ku-green);justify-content:space-between;align-items:baseline}
-body[data-hero="1"] .hero h1{color:var(--ku-green)}
-body[data-hero="1"] .hero .desc{display:block;font-size:14px;color:var(--ink-2)}
+/* 히어로 2번: 타이포 밴드 — 사진 없이 연녹색 밴드 + 제목 (1번은 기본 = 현재 방식) */
+body[data-hero="2"]{--hero-h:150px}
+body[data-hero="2"] .hero{background:#E6EFE9}
+body[data-hero="2"] .hero img,body[data-hero="2"] .hero::after,body[data-hero="2"] .hero .tag{display:none}
+body[data-hero="2"] .hero .wrap{color:var(--ku-green);justify-content:space-between;align-items:baseline}
+body[data-hero="2"] .hero h1{color:var(--ku-green)}
+body[data-hero="2"] .hero .desc{display:block;font-size:14px;color:var(--ink-2)}
 
-/* 히어로 2안: 분할 — 왼쪽 제목·설명, 오른쪽 40%에만 사진을 반듯하게 */
-body[data-hero="2"]{--hero-h:clamp(190px,19vw,240px)}
-body[data-hero="2"] .hero{background:var(--surface)}
-body[data-hero="2"] .hero img{position:absolute;top:0;bottom:0;right:0;left:58%;width:42%;object-position:center 35%}
-body[data-hero="2"] .hero::after,body[data-hero="2"] .hero .tag{display:none}
-body[data-hero="2"] .hero .wrap{color:var(--ink);display:block}
-body[data-hero="2"] .hero h1{color:var(--ink);font-size:36px}
-body[data-hero="2"] .hero .desc{display:block;font-size:15px;color:var(--ink-2);margin-top:8px;max-width:50%}
 
-/* 히어로 3안: 듀오톤 — 사진에 KU 그린 듀오톤, 흰 제목 */
+/* 히어로 3번: 듀오톤 — 사진에 KU 그린 듀오톤, 흰 제목 */
 body[data-hero="3"]{--hero-h:clamp(190px,19vw,240px)}
 body[data-hero="3"] .hero{background:var(--ku-green)}
 body[data-hero="3"] .hero img{filter:grayscale(1) contrast(1.12) brightness(.98)}
@@ -94,11 +86,11 @@ body[data-hero="3"] .hero .tag{display:none}
 body[data-hero="3"] .hero .wrap{display:block}
 body[data-hero="3"] .hero .desc{display:block;font-size:15px;color:rgba(255,255,255,.88);margin-top:6px}
 
-/* 히어로 비교 스위치 (공유용: #h1 #h2 #h3) */
-.hsw{position:fixed;right:14px;bottom:14px;z-index:9;display:flex;align-items:center;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);font-size:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
-.hsw span{padding:0 6px 0 13px;color:var(--ink-3)}
-.hsw button{padding:7px 12px;color:var(--ink-2)}
-.hsw button[aria-current="true"]{background:var(--ku-green);color:#fff}
+/* 히어로 옵션 스위치 — 맨 위 띠 (검토용, 공유 링크 #h1 #h2 #h3) */
+.hsw{display:flex;justify-content:center;align-items:center;gap:6px;padding:7px 12px;background:var(--ground);border-bottom:1px solid var(--line);font-size:12px}
+.hsw span{color:var(--ink-3);margin-right:6px}
+.hsw button{padding:4px 14px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink-2)}
+.hsw button[aria-current="true"]{background:var(--ku-green);border-color:var(--ku-green);color:#fff}
 
 /* ── 홈: 메인 비주얼 (현재 홈의 슬라이드 자리, 사진은 임시로 hero.jpg) ── */
 .mv{display:none;position:relative;height:var(--mv-h);overflow:hidden;background:var(--green-deep)}
@@ -311,8 +303,6 @@ body.is-home .emblem-wm{top:calc(var(--mv-h) - 120px)}
 @media (max-width:900px){
   .hero h1{font-size:26px}
   .hero .tag{display:none}
-  body[data-hero="2"] .hero img{display:none}
-  body[data-hero="2"] .hero .desc{max-width:none}
   .h-top,.h-mid{grid-template-columns:1fr}
   .h-bot{grid-template-columns:1fr 1fr}
   .bar{flex-wrap:wrap}
@@ -326,6 +316,13 @@ body.is-home .emblem-wm{top:calc(var(--mv-h) - 120px)}
 </style>
 </head>
 <body>
+
+<div class="hsw" role="group" aria-label="히어로 옵션">
+  <span>히어로 옵션</span>
+  <button type="button" data-h="1">1번</button>
+  <button type="button" data-h="2">2번</button>
+  <button type="button" data-h="3">3번</button>
+</div>
 
 <header class="hdr">
   <div class="wrap">
@@ -371,14 +368,6 @@ body.is-home .emblem-wm{top:calc(var(--mv-h) - 120px)}
     <div class="content" id="content"></div>
   </div>
 </main>
-</div>
-
-<div class="hsw" role="group" aria-label="히어로 안 비교">
-  <span>히어로</span>
-  <button type="button" data-h="0">현재</button>
-  <button type="button" data-h="1">1 타이포</button>
-  <button type="button" data-h="2">2 분할</button>
-  <button type="button" data-h="3">3 듀오톤</button>
 </div>
 
 <!-- 학과소개 본문: 학과소개_통합_시안_v1.html 의 4개 섹션 (이미지·지도 자리는 실제 적용 시 교체) -->
@@ -661,14 +650,14 @@ function render(){
     state.m = mi; state.t = Math.max(0, MENU[mi].tabs.findIndex(t => t.name === tn)); state.sub = 0; render(); scrollTo(0, 0);
   }));
 }
-/* 히어로 안 스위치 — #h1 / #h2 / #h3 로 공유 가능 */
+/* 히어로 옵션 스위치 — 1번 현재 방식 / 2번 타이포 밴드 / 3번 듀오톤, 공유 링크 #h1 #h2 #h3 */
 function setHero(h){
   document.body.dataset.hero = h;
-  history.replaceState(null, '', h === '0' ? location.pathname + location.search : '#h' + h);
+  history.replaceState(null, '', '#h' + h);
   document.querySelectorAll('.hsw button').forEach(b => b.setAttribute('aria-current', String(b.dataset.h === h)));
 }
 document.querySelectorAll('.hsw button').forEach(b => b.addEventListener('click', () => setHero(b.dataset.h)));
-setHero((location.hash.match(/^#h([123])$/) || [,'0'])[1]);
+setHero((location.hash.match(/^#h([123])$/) || [,'1'])[1]);
 
 document.getElementById('logo').addEventListener('click', e => { e.preventDefault(); state.m = 0; state.t = 0; state.sub = 0; render(); scrollTo(0, 0); });
 
