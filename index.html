@@ -188,9 +188,7 @@ const MENU = [
       { name:'FAQ', view:{kind:'faq', rows:5} },
       { name:'자료실', view:{kind:'board', rows:6, file:true} },
       { name:'포토갤러리', view:{kind:'gallery', n:6} } ] },
-  { name:'학생활동', tabs:[
-      { name:'학생회 소개', view:{kind:'split'} },
-      { name:'학술동아리', view:{kind:'gallery', n:3} } ] },
+  { name:'학생활동', tabs:['학생회 소개','학술동아리'].map(n => ({ name:n, view:{kind:'blank'} })) },   // 하위 내용 스케치 없음
   { name:'취업지원', tabs:[], view:{kind:'board', rows:6} },
   { name:'이용안내', tabs:[
       { name:'사이트맵', view:{kind:'sitemap'} },
