@@ -62,6 +62,43 @@ ul{margin:0;padding:0;list-style:none}
 .hero h1{font-size:34px;letter-spacing:-.01em;color:#fff}
 .hero .tag{font-size:13px;line-height:1.55;opacity:.9;padding-top:6px}
 .hero .tag b{display:block;font-family:var(--display);font-weight:500;font-size:14px;letter-spacing:.01em}
+.hero .desc{display:none}
+.hero .dt{display:none}
+
+/* 히어로 1안: 타이포 밴드 — 사진 없이 연녹색 밴드 + 제목 */
+body[data-hero="1"]{--hero-h:150px}
+body[data-hero="1"] .hero{background:#E6EFE9}
+body[data-hero="1"] .hero img,body[data-hero="1"] .hero::after,body[data-hero="1"] .hero .tag{display:none}
+body[data-hero="1"] .hero .wrap{color:var(--ku-green);justify-content:space-between;align-items:baseline}
+body[data-hero="1"] .hero h1{color:var(--ku-green)}
+body[data-hero="1"] .hero .desc{display:block;font-size:14px;color:var(--ink-2)}
+
+/* 히어로 2안: 분할 — 왼쪽 제목·설명, 오른쪽 40%에만 사진을 반듯하게 */
+body[data-hero="2"]{--hero-h:clamp(190px,19vw,240px)}
+body[data-hero="2"] .hero{background:var(--surface)}
+body[data-hero="2"] .hero img{position:absolute;top:0;bottom:0;right:0;left:58%;width:42%;object-position:center 35%}
+body[data-hero="2"] .hero::after,body[data-hero="2"] .hero .tag{display:none}
+body[data-hero="2"] .hero .wrap{color:var(--ink);display:block}
+body[data-hero="2"] .hero h1{color:var(--ink);font-size:36px}
+body[data-hero="2"] .hero .desc{display:block;font-size:15px;color:var(--ink-2);margin-top:8px;max-width:50%}
+
+/* 히어로 3안: 듀오톤 — 사진에 KU 그린 듀오톤, 흰 제목 */
+body[data-hero="3"]{--hero-h:clamp(190px,19vw,240px)}
+body[data-hero="3"] .hero{background:var(--ku-green)}
+body[data-hero="3"] .hero img{filter:grayscale(1) contrast(1.12) brightness(.98)}
+body[data-hero="3"] .hero .dt{display:block;position:absolute;inset:0}
+body[data-hero="3"] .hero .dt1{background:var(--ku-green);mix-blend-mode:multiply}
+body[data-hero="3"] .hero .dt2{background:rgba(155,216,178,.3);mix-blend-mode:screen}
+body[data-hero="3"] .hero::after{background:linear-gradient(90deg,rgba(0,30,15,.5) 0%,rgba(0,30,15,0) 60%)}
+body[data-hero="3"] .hero .tag{display:none}
+body[data-hero="3"] .hero .wrap{display:block}
+body[data-hero="3"] .hero .desc{display:block;font-size:15px;color:rgba(255,255,255,.88);margin-top:6px}
+
+/* 히어로 비교 스위치 (공유용: #h1 #h2 #h3) */
+.hsw{position:fixed;right:14px;bottom:14px;z-index:9;display:flex;align-items:center;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);font-size:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.hsw span{padding:0 6px 0 13px;color:var(--ink-3)}
+.hsw button{padding:7px 12px;color:var(--ink-2)}
+.hsw button[aria-current="true"]{background:var(--ku-green);color:#fff}
 
 /* ── 홈: 메인 비주얼 (현재 홈의 슬라이드 자리, 사진은 임시로 hero.jpg) ── */
 .mv{display:none;position:relative;height:var(--mv-h);overflow:hidden;background:var(--green-deep)}
@@ -274,6 +311,8 @@ body.is-home .emblem-wm{top:calc(var(--mv-h) - 120px)}
 @media (max-width:900px){
   .hero h1{font-size:26px}
   .hero .tag{display:none}
+  body[data-hero="2"] .hero img{display:none}
+  body[data-hero="2"] .hero .desc{max-width:none}
   .h-top,.h-mid{grid-template-columns:1fr}
   .h-bot{grid-template-columns:1fr 1fr}
   .bar{flex-wrap:wrap}
@@ -317,9 +356,11 @@ body.is-home .emblem-wm{top:calc(var(--mv-h) - 120px)}
 <!-- 사진 히어로 (페이지 제목 포함) -->
 <div class="hero">
   <img data-img="hero" alt="">
+  <span class="dt dt1"></span><span class="dt dt2"></span>
   <div class="wrap">
     <h1 id="heroTitle"></h1>
     <p class="tag"><b>A history of leadership Konkuk University</b>건국, 세계를 이끌 녹색의 물결</p>
+    <p class="desc" id="heroDesc"></p>
   </div>
 </div>
 
@@ -330,6 +371,14 @@ body.is-home .emblem-wm{top:calc(var(--mv-h) - 120px)}
     <div class="content" id="content"></div>
   </div>
 </main>
+</div>
+
+<div class="hsw" role="group" aria-label="히어로 안 비교">
+  <span>히어로</span>
+  <button type="button" data-h="0">현재</button>
+  <button type="button" data-h="1">1 타이포</button>
+  <button type="button" data-h="2">2 분할</button>
+  <button type="button" data-h="3">3 듀오톤</button>
 </div>
 
 <!-- 학과소개 본문: 학과소개_통합_시안_v1.html 의 4개 섹션 (이미지·지도 자리는 실제 적용 시 교체) -->
@@ -468,23 +517,23 @@ const FIELDS = ['인사조직','재무관리','마케팅','운영관리·경영�
 
 const MENU = [
   { name:'홈', home:true, tabs:[], view:{kind:'home'} },   // 로고 클릭 시 (상단 메뉴에는 표시 안 함)
-  { name:'학과소개', tabs:[], view:{kind:'intro'} },   // 하위 4개 메뉴를 한 페이지로 통합
-  { name:'교육과정', tabs:[
+  { name:'학과소개', desc:'학과 소개 · 교육목표 · 인사말 · 찾아오시는길', tabs:[], view:{kind:'intro'} },   // 하위 4개 메뉴를 한 페이지로 통합
+  { name:'교육과정', desc:'교과목 편성 · 졸업요건 · 장학 · 학사일정', tabs:[
       { name:'교육과정', view:{kind:'curriculum'} },
       { name:'졸업요건', lead:'졸업을 위해 충족해야 하는 기준', view:{kind:'dl', rows:['총 이수학점','전공 이수학점','교양 이수학점','졸업 인증 (어학·논문 등)','기타']} },
       { name:'이수학점 및 필수과목', view:{kind:'table', cols:['이수구분','교과목명','학점','비고'], rows:5} },
       { name:'경영학과 장학', lead:'학과 자체 장학 안내', view:{kind:'table', cols:['장학금명','지급 대상','금액','신청 시기'], rows:4} },
       { name:'건국대 장학', ext:'건국대학교 장학 안내' },
       { name:'학사일정', ext:'Outlook 학사일정' } ] },
-  { name:'교수소개', tabs:['전체', ...FIELDS, '산학·겸임·초빙', '명예교수'].map(n => ({ name:n, view:{kind:'blank'} })) },   // 하위 내용 스케치 없음
-  { name:'커뮤니티', tabs:[
+  { name:'교수소개', desc:'분야별 교수진 소개', tabs:['전체', ...FIELDS, '산학·겸임·초빙', '명예교수'].map(n => ({ name:n, view:{kind:'blank'} })) },   // 하위 내용 스케치 없음
+  { name:'커뮤니티', desc:'공지사항 · FAQ · 자료실 · 포토갤러리', tabs:[
       { name:'공지사항', view:{kind:'board', rows:6} },
       { name:'FAQ', view:{kind:'faq', rows:5} },
       { name:'자료실', view:{kind:'board', rows:6, file:true} },
       { name:'포토갤러리', view:{kind:'gallery', n:6} } ] },
-  { name:'학생활동', tabs:['학생회 소개','학술동아리'].map(n => ({ name:n, view:{kind:'blank'} })) },   // 하위 내용 스케치 없음
-  { name:'취업지원', tabs:[], view:{kind:'board', rows:6} },
-  { name:'이용안내', tabs:[
+  { name:'학생활동', desc:'학생회 · 학술동아리', tabs:['학생회 소개','학술동아리'].map(n => ({ name:n, view:{kind:'blank'} })) },   // 하위 내용 스케치 없음
+  { name:'취업지원', desc:'취업 · 공모 소식', tabs:[], view:{kind:'board', rows:6} },
+  { name:'이용안내', desc:'사이트맵 · 로그인', tabs:[
       { name:'사이트맵', view:{kind:'sitemap'} },
       { name:'로그인', view:{kind:'login'} } ] }
 ];
@@ -599,6 +648,7 @@ function render(){
   menu.tabs.forEach((t,i) => tabs.append(btn(t.name, t.ext ? 'ext' : '', () => { state.t=i; state.sub=0; render(); }, i===state.t)));
 
   document.getElementById('heroTitle').textContent = menu.name;
+  document.getElementById('heroDesc').textContent = menu.desc || '';
   document.body.classList.toggle('is-home', !!menu.home);
 
   const view = tab ? (tab.ext ? {kind:'ext', name:tab.name, ext:tab.ext} : tab.view) : menu.view;
@@ -611,6 +661,15 @@ function render(){
     state.m = mi; state.t = Math.max(0, MENU[mi].tabs.findIndex(t => t.name === tn)); state.sub = 0; render(); scrollTo(0, 0);
   }));
 }
+/* 히어로 안 스위치 — #h1 / #h2 / #h3 로 공유 가능 */
+function setHero(h){
+  document.body.dataset.hero = h;
+  history.replaceState(null, '', h === '0' ? location.pathname + location.search : '#h' + h);
+  document.querySelectorAll('.hsw button').forEach(b => b.setAttribute('aria-current', String(b.dataset.h === h)));
+}
+document.querySelectorAll('.hsw button').forEach(b => b.addEventListener('click', () => setHero(b.dataset.h)));
+setHero((location.hash.match(/^#h([123])$/) || [,'0'])[1]);
+
 document.getElementById('logo').addEventListener('click', e => { e.preventDefault(); state.m = 0; state.t = 0; state.sub = 0; render(); scrollTo(0, 0); });
 
 render();
