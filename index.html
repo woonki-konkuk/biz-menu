@@ -124,7 +124,7 @@ const MENU = [
   { name:'학과소개', tabs:[], note:'통합 단일 페이지 — 하위 탭 없음' },
   { name:'교육과정', tabs:[
       { name:'교육과정' }, { name:'졸업요건' }, { name:'이수학점 및 필수과목' },
-      { name:'학교 장학' }, { name:'경영학과 장학' }, { name:'학사일정', ext:true } ] },
+      { name:'학교 장학', ext:'건국대학교 장학 안내' }, { name:'경영학과 장학' }, { name:'학사일정', ext:'Outlook 학사일정' } ] },
   { name:'교수소개', tabs:['인사조직','재무관리','마케팅','운영관리·경영과학','전략·국제경영','회계','경영정보','명예·겸임·초빙'].map(n => ({name:n})) },
   { name:'커뮤니티', tabs:['공지사항','FAQ','자료실','포토갤러리'].map(n => ({name:n})) },
   { name:'학생활동', tabs:['학생회 소개','학술동아리'].map(n => ({name:n})) },
@@ -155,7 +155,7 @@ function render(){
 
   document.getElementById('title').textContent = menu.name;
   document.getElementById('ph').textContent = tab && tab.ext
-    ? '외부 링크 (Outlook 학사일정) — 새 창으로 열림'
+    ? '외부 링크 (' + tab.ext + ') — 새 창으로 열림'
     : '본문 영역 — 내용은 생략' + (tab ? ' · ' + tab.name : '') + (menu.note ? ' · ' + menu.note : '');
 }
 
