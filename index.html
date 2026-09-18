@@ -77,9 +77,10 @@ ul{margin:0;padding:0;list-style:none}
   100%{transform:translateY(0) rotate(0deg)}}
 @media (prefers-reduced-motion:reduce){.emblem-bull{animation:none}}
 .page h1{font-size:28px;letter-spacing:-.01em}
-.lead{margin-top:22px;font-size:15px;color:var(--ink-2)}
-.lead[hidden]{display:none}
-.content{margin-top:22px}
+/* 탭 아래 툴바 줄 — 내용이 있든 없든 같은 높이라 본문 시작 위치가 탭마다 같음 */
+.sub-bar{display:flex;align-items:center;gap:18px;flex-wrap:wrap;min-height:38px;margin-top:20px}
+.lead{font-size:15px;color:var(--ink-2)}
+.content{margin-top:12px;min-height:520px}
 .note{margin-top:14px;font-size:13px;color:var(--ink-3)}
 .note a{color:var(--green-bright);text-decoration:underline;text-underline-offset:3px}
 
@@ -156,14 +157,12 @@ ul{margin:0;padding:0;list-style:none}
 .ph{min-height:240px;display:grid;place-items:center;text-align:center;border:1px dashed var(--line-strong);border-radius:6px;color:var(--ink-3);font-size:14px;background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,81,40,.045) 14px 28px)}
 
 /* 교육과정 탭: 년도 선택 + 세부 탭(전공교육과정 / 전공B / 전공인정교양) */
-.curr-bar{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .seg{display:flex}
 .seg button{padding:4px 16px;font-size:14px;color:var(--ink-2);border-left:1px solid var(--line)}
 .seg button:first-child{border-left:0}
 .seg button:hover{color:var(--ku-green)}
 .seg button[aria-current="true"]{color:var(--ku-green);font-weight:700}
-.curr-bar select{font:inherit;font-size:14px;padding:6px 30px 6px 10px;border:1px solid var(--line-strong);border-radius:3px;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%234F5B55' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 10px center;appearance:none;-webkit-appearance:none;color:var(--ink-2)}
-.curr{margin-top:14px}
+.sub-bar select{font:inherit;font-size:14px;padding:6px 30px 6px 10px;border:1px solid var(--line-strong);border-radius:3px;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%234F5B55' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 10px center;appearance:none;-webkit-appearance:none;color:var(--ink-2)}
 .tbl .en{color:var(--ink-3);font-size:13px}
 .tbl .more td{color:var(--ink-3);text-align:center;font-size:13px}
 
@@ -241,7 +240,7 @@ ul{margin:0;padding:0;list-style:none}
   <div class="wrap">
     <h1 id="title"></h1>
     <nav class="tabs" id="tabs" aria-label="하위 메뉴"></nav>
-    <p class="lead" id="lead" hidden></p>
+    <div class="sub-bar" id="subbar"></div>
     <div class="content" id="content"></div>
   </div>
 </main>
@@ -411,6 +410,10 @@ const CURR_ROWS  = [
   ['2-2','전선','BNBA11872','소비자행동론','CONSUMER BEHAVIOR','3(3)']
 ];
 
+/* 교육과정 탭의 툴바: 년도 선택 + 세부 탭 */
+const CURR_BAR = () => `<select aria-label="교육과정 년도">${CURR_YEARS.map(y => `<option${y==='2026년'?' selected':''}>${y}</option>`).join('')}</select>
+  <div class="seg" id="seg">${CURR_SUBS.map((n,i) => `<button type="button"${i===state.sub?' aria-current="true"':''}>${n}</button>`).join('')}</div>`;
+
 /* ── 스케치 렌더러 ── */
 const sk = w => `<span class="sk w${w}"></span>`;
 const cyc = (arr, i) => arr[i % arr.length];
@@ -420,12 +423,7 @@ const VIEW = {
 
   intro: () => `<div class="intro">${document.getElementById('intro-tpl').innerHTML}</div>`,
 
-  curriculum: () => `
-    <div class="curr-bar">
-      <select aria-label="교육과정 년도">${CURR_YEARS.map(y => `<option${y==='2026년'?' selected':''}>${y}</option>`).join('')}</select>
-      <div class="seg" id="seg">${CURR_SUBS.map((n,i) => `<button type="button"${i===state.sub?' aria-current="true"':''}>${n}</button>`).join('')}</div>
-    </div>
-    <table class="tbl curr"><caption class="sr" hidden>${CURR_SUBS[state.sub]}</caption><thead><tr><th class="c">학년-학기</th><th class="c">이수구분</th><th class="c">학수번호</th><th>교과목명</th><th>영문교과목명</th><th class="c">학점(시간)</th></tr></thead><tbody>${
+  curriculum: () => `<table class="tbl curr"><caption class="sr" hidden>${CURR_SUBS[state.sub]}</caption><thead><tr><th class="c">학년-학기</th><th class="c">이수구분</th><th class="c">학수번호</th><th>교과목명</th><th>영문교과목명</th><th class="c">학점(시간)</th></tr></thead><tbody>${
       state.sub === 0
         ? CURR_ROWS.map(r => `<tr><td class="c">${r[0]}</td><td class="c">${r[1]}</td><td class="c num">${r[2]}</td><td>${r[3]}</td><td class="en">${r[4]}</td><td class="c">${r[5]}</td></tr>`).join('') + `<tr class="more"><td colspan="6">… 이하 생략 (실제로는 전체 교과목 표시)</td></tr>`
         : `<tr class="more"><td colspan="6">해당되는 데이터가 없습니다.</td></tr>`
@@ -478,10 +476,8 @@ function render(){
 
   document.getElementById('title').textContent = menu.name;
 
-  const lead = document.getElementById('lead');
-  lead.hidden = !(tab && tab.lead); lead.textContent = (tab && tab.lead) || '';
-
   const view = tab ? (tab.ext ? {kind:'ext', name:tab.name, ext:tab.ext} : tab.view) : menu.view;
+  document.getElementById('subbar').innerHTML = view.kind === 'curriculum' ? CURR_BAR() : (tab && tab.lead ? `<p class="lead">${tab.lead}</p>` : '');
   document.getElementById('content').innerHTML = VIEW[view.kind](view);
   document.querySelectorAll('#seg button').forEach((b,i) => b.addEventListener('click', () => { state.sub=i; render(); }));
 }
