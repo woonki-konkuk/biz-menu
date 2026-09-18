@@ -91,16 +91,14 @@ ul{margin:0;padding:0;list-style:none}
 .ph{min-height:240px;display:grid;place-items:center;text-align:center;border:1px dashed var(--line-strong);border-radius:6px;color:var(--ink-3);font-size:14px;background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,81,40,.045) 14px 28px)}
 
 /* 교육과정 탭: 년도 선택 + 세부 탭(전공교육과정 / 전공B / 전공인정교양) */
-.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.toolbar label{font-size:14px;color:var(--ink-2)}
-.toolbar select{font:inherit;font-size:14px;padding:8px 34px 8px 12px;border:1px solid var(--line-strong);border-radius:3px;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%234F5B55' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 12px center;appearance:none;-webkit-appearance:none;color:var(--ink)}
-.toolbar .btn{padding:8px 16px}
-.seg{display:flex;margin-top:18px;border:1px solid var(--line-strong);border-radius:4px;overflow:hidden;width:max-content}
-.seg button{padding:9px 18px;font-size:14px;color:var(--ink-2);border-right:1px solid var(--line-strong)}
-.seg button:last-child{border-right:0}
+.curr-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.seg{display:flex}
+.seg button{padding:4px 16px;font-size:14px;color:var(--ink-2);border-left:1px solid var(--line)}
+.seg button:first-child{border-left:0;padding-left:0}
 .seg button:hover{color:var(--ku-green)}
-.seg button[aria-current="true"]{background:var(--ku-green);color:#fff;font-weight:600}
-.curr{margin-top:16px}
+.seg button[aria-current="true"]{color:var(--ku-green);font-weight:700}
+.curr-bar select{font:inherit;font-size:14px;padding:6px 30px 6px 10px;border:1px solid var(--line-strong);border-radius:3px;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%234F5B55' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 10px center;appearance:none;-webkit-appearance:none;color:var(--ink-2)}
+.curr{margin-top:14px}
 .tbl .en{color:var(--ink-3);font-size:13px}
 .tbl .more td{color:var(--ink-3);text-align:center;font-size:13px}
 
@@ -113,7 +111,7 @@ ul{margin:0;padding:0;list-style:none}
 .dl{border-top:2px solid var(--ku-green)}
 .dl > div{display:grid;grid-template-columns:220px 1fr;border-bottom:1px solid var(--line)}
 .dl dt{padding:13px 16px;background:var(--ground);font-weight:600;font-size:14px}
-.dl dd{padding:13px 16px;display:flex;align-items:center}
+.dl dd{padding:13px 16px;display:flex;align-items:center;font-size:14px}
 
 .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 20px}
 .card .img{aspect-ratio:3/4}
@@ -187,8 +185,7 @@ ul{margin:0;padding:0;list-style:none}
 const FIELDS = ['인사조직','재무관리','마케팅','운영관리·경영과학','전략·국제경영','회계','경영정보'];
 
 const MENU = [
-  { name:'학과소개', tabs:[],
-    view:{kind:'split', note:'학과소개·교육목표·인사말·찾아오시는길을 한 페이지로 통합 → <a href="https://woonki-konkuk.github.io/biz-intro/" target="_blank" rel="noopener">통합 페이지 시안 보기</a>'} },
+  { name:'학과소개', tabs:[], view:{kind:'intro'} },   // 하위 4개 메뉴를 한 페이지로 통합
   { name:'교육과정', tabs:[
       { name:'교육과정', view:{kind:'curriculum'} },
       { name:'졸업요건', lead:'졸업을 위해 충족해야 하는 기준', view:{kind:'dl', rows:['총 이수학점','전공 이수학점','교양 이수학점','졸업 인증 (어학·논문 등)','기타']} },
@@ -234,11 +231,19 @@ const cyc = (arr, i) => arr[i % arr.length];
 const VIEW = {
   blank: () => `<div class="ph">본문 영역 — 내용은 생략</div>`,
 
+  intro: () => `<dl class="dl">
+    <div><dt>학과소개</dt><dd>인사조직 · 재무관리 · 마케팅 · 운영관리 및 경영과학 · 전략 및 국제경영 · 회계 · 경영정보</dd></div>
+    <div><dt>교육목표</dt><dd>Globalization · Practicality · Leadership · Integrity</dd></div>
+    <div><dt>인사말</dt><dd>학과장 홍운기 · 김효진 교수</dd></div>
+    <div><dt>찾아오시는길</dt><dd>경영관 210호 · 02-450-3629</dd></div>
+  </dl>
+  <p class="note">네 하위 메뉴를 한 페이지에 순서대로 → <a href="https://woonki-konkuk.github.io/biz-intro/" target="_blank" rel="noopener">통합 페이지 시안 보기</a></p>`,
+
   curriculum: () => `
-    <div class="toolbar"><label for="yr">교육과정 년도</label>
-      <select id="yr">${CURR_YEARS.map(y => `<option${y==='2026년'?' selected':''}>${y}</option>`).join('')}</select>
-      <span class="btn">확인</span></div>
-    <div class="seg" id="seg">${CURR_SUBS.map((n,i) => `<button type="button"${i===state.sub?' aria-current="true"':''}>${n}</button>`).join('')}</div>
+    <div class="curr-bar">
+      <div class="seg" id="seg">${CURR_SUBS.map((n,i) => `<button type="button"${i===state.sub?' aria-current="true"':''}>${n}</button>`).join('')}</div>
+      <select aria-label="교육과정 년도">${CURR_YEARS.map(y => `<option${y==='2026년'?' selected':''}>${y}</option>`).join('')}</select>
+    </div>
     <table class="tbl curr"><caption class="sr" hidden>${CURR_SUBS[state.sub]}</caption><thead><tr><th class="c">학년-학기</th><th class="c">이수구분</th><th class="c">학수번호</th><th>교과목명</th><th>영문교과목명</th><th class="c">학점(시간)</th></tr></thead><tbody>${
       state.sub === 0
         ? CURR_ROWS.map(r => `<tr><td class="c">${r[0]}</td><td class="c">${r[1]}</td><td class="c num">${r[2]}</td><td>${r[3]}</td><td class="en">${r[4]}</td><td class="c">${r[5]}</td></tr>`).join('') + `<tr class="more"><td colspan="6">… 이하 생략 (실제로는 전체 교과목 표시)</td></tr>`
