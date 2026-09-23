@@ -204,15 +204,14 @@ body.is-home .content{margin-top:40px;min-height:0}
 .intro .sign{margin-top:32px;padding-top:20px;border-top:1px solid var(--line-strong);font-size:14px;color:var(--ink-2)}
 .intro .sign b{display:block;font-family:var(--display);font-weight:700;font-size:17px;color:var(--ink);margin-top:2px}
 /* 관련 학과·대학원 */
-.intro .sites{padding-bottom:0}
-.intro .sites h2{font-size:20px;letter-spacing:-.01em;margin-bottom:16px}
-.intro .sitelinks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.intro .sitelinks a{position:relative;display:grid;gap:2px;padding:18px 20px;border:1px solid var(--line-strong);background:var(--surface);transition:border-color .15s}
-.intro .sitelinks a::after{content:"↗";position:absolute;right:16px;top:15px;color:var(--green-bright);font-size:14px}
-.intro .sitelinks a:hover{border-color:var(--ku-green)}
-.intro .sitelinks b{font-family:var(--display);font-weight:700;font-size:17px}
-.intro .sitelinks span{font-size:13px;color:var(--ink-3)}
-@media (max-width:760px){.intro .sitelinks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.home .sites h2{font-size:20px;letter-spacing:-.01em;margin-bottom:16px}
+.home .sitelinks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.home .sitelinks a{position:relative;display:grid;gap:2px;padding:18px 20px;border:1px solid var(--line-strong);background:var(--surface);transition:border-color .15s}
+.home .sitelinks a::after{content:"↗";position:absolute;right:16px;top:15px;color:var(--green-bright);font-size:14px}
+.home .sitelinks a:hover{border-color:var(--ku-green)}
+.home .sitelinks b{font-family:var(--display);font-weight:700;font-size:17px}
+.home .sitelinks span{font-size:13px;color:var(--ink-3)}
+@media (max-width:760px){.home .sitelinks{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* 찾아오시는길 */
 .intro .loc{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:52px;align-items:start}
 .intro .addr{border-top:1px solid var(--ink);padding-top:20px;margin-bottom:28px}
@@ -428,16 +427,6 @@ body.is-home .content{margin-top:40px;min-height:0}
   </div>
 </section>
 
-<section class="sec sites">
-  <h2>관련 학과·대학원</h2>
-  <ul class="sitelinks">
-    <li><a href="https://kbs.konkuk.ac.kr" target="_blank" rel="noopener"><b>경영대학</b><span>kbs.konkuk.ac.kr</span></a></li>
-    <li><a href="https://mot.konkuk.ac.kr" target="_blank" rel="noopener"><b>기술경영학과</b><span>mot.konkuk.ac.kr</span></a></li>
-    <li><a href="https://mba.konkuk.ac.kr" target="_blank" rel="noopener"><b>경영전문대학원</b><span>mba.konkuk.ac.kr</span></a></li>
-    <li><a href="https://grad.konkuk.ac.kr" target="_blank" rel="noopener"><b>일반대학원</b><span>grad.konkuk.ac.kr</span></a></li>
-  </ul>
-</section>
-
 <section class="sec">
   <div class="loc">
     <div>
@@ -575,6 +564,14 @@ const VIEW = {
     <div class="h-bot">
       ${HOME.bnr.map(([t,d,go]) => `<button type="button" class="bnr" data-go="${go||''}"><b>${t}</b><small>${d}</small><span class="vm">VIEW MORE</span></button>`).join('')}
       <div class="gal"><div class="img">포토갤러리 이미지</div></div>
+    </div>
+    <div class="sites"><h2>관련 학과·대학원</h2>
+      <ul class="sitelinks">
+        <li><a href="https://kbs.konkuk.ac.kr" target="_blank" rel="noopener"><b>경영대학</b><span>kbs.konkuk.ac.kr</span></a></li>
+        <li><a href="https://mot.konkuk.ac.kr" target="_blank" rel="noopener"><b>기술경영학과</b><span>mot.konkuk.ac.kr</span></a></li>
+        <li><a href="https://mba.konkuk.ac.kr" target="_blank" rel="noopener"><b>경영전문대학원</b><span>mba.konkuk.ac.kr</span></a></li>
+        <li><a href="https://grad.konkuk.ac.kr" target="_blank" rel="noopener"><b>일반대학원</b><span>grad.konkuk.ac.kr</span></a></li>
+      </ul>
     </div>
   </div>`,
 
